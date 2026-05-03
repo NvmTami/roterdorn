@@ -1,78 +1,80 @@
-<h2 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;">Mockup einer modernisierten Startseite von roterdorn.de mit dunklem Editorial-Layout, Hero-Bereich für die neueste Rezension und einem Vier-Spalten-Karten-Grid für aktuelle Beiträge aus den Kategorien Buch, Film, Musik und Spiel.</h2>
+<link rel="stylesheet" href="./roterdorn_homepage_mockup.css">
 
-<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 12px;">
+<h2 class="rd-mockup-sr-only">Mockup einer modernisierten Startseite von roterdorn.de mit dunklem Editorial-Layout, Hero-Bereich für die neueste Rezension und einem Vier-Spalten-Karten-Grid für aktuelle Beiträge aus den Kategorien Buch, Film, Musik und Spiel.</h2>
 
-  <div style="display: flex; align-items: center; gap: 8px; padding: 4px 8px 12px;">
-    <span style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; flex-shrink: 0;"></span>
-    <span style="width: 10px; height: 10px; border-radius: 50%; background: #febc2e; flex-shrink: 0;"></span>
-    <span style="width: 10px; height: 10px; border-radius: 50%; background: #28c840; flex-shrink: 0;"></span>
-    <div style="margin-left: 12px; padding: 4px 14px; background: var(--color-background-primary); border-radius: 4px; font-size: 11px; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary);">roterdorn.de</div>
+<div class="rd-mockup-shell">
+
+  <div class="rd-mockup-windowbar">
+    <span class="rd-mockup-dot rd-mockup-dot-red"></span>
+    <span class="rd-mockup-dot rd-mockup-dot-yellow"></span>
+    <span class="rd-mockup-dot rd-mockup-dot-green"></span>
+    <div class="rd-mockup-address">roterdorn.de</div>
   </div>
 
-  <div style="background: #0d0d0d; border-radius: 6px; overflow: hidden; color: #ffffff;">
+  <div class="rd-mockup-browser">
 
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 22px; border-bottom: 0.5px solid #1f1f1f;">
-      <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 17px; font-weight: 500; letter-spacing: -0.5px; color: #ffffff;">
+    <div class="rd-mockup-topnav">
+      <div class="rd-mockup-logo">
         <span>roter</span>
-        <svg width="22" height="14" viewBox="0 0 22 14" style="display: block;"><polygon points="0,0 22,7 0,14" fill="#E24B4A"/></svg>
+        <svg width="22" height="14" viewBox="0 0 22 14" class="rd-mockup-logo-arrow"><polygon points="0,0 22,7 0,14" fill="#E24B4A"/></svg>
         <span>dorn</span>
       </div>
-      <nav style="display: flex; gap: 24px; font-size: 12px; color: #d4d4d4;">
+      <nav class="rd-mockup-nav-links">
         <span>Bücher</span>
         <span>Filme</span>
         <span>Musik</span>
         <span>Spiele</span>
-        <span style="color: #888;">Redaktion</span>
+        <span class="rd-mockup-nav-muted">Redaktion</span>
       </nav>
     </div>
 
-    <div style="padding: 28px 22px 20px;">
-      <div style="display: grid; grid-template-columns: 170px 1fr; gap: 22px; align-items: start;">
-        <div style="aspect-ratio: 2/3; background: linear-gradient(135deg, #5a2818 0%, #2a1208 100%); border-radius: 4px; display: flex; align-items: flex-end; padding: 10px; font-size: 11px; color: #c4806a;">Cover</div>
+    <div class="rd-mockup-hero-wrap">
+      <div class="rd-mockup-hero-grid">
+        <div class="rd-mockup-hero-cover">Cover</div>
         <div>
-          <span style="display: inline-block; background: #E24B4A; color: #2a0808; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 3px;">Rezension · Buch</span>
-          <div style="font-size: 25px; font-weight: 500; margin: 12px 0 6px; line-height: 1.15; color: #ffffff; letter-spacing: -0.5px;">Spiel mir das Lied vom Goblin</div>
-          <div style="font-size: 12px; color: #888; margin: 0 0 14px;">Joanna Müller-Lenz · 02.05.2026</div>
-          <div style="font-size: 13px; color: #c4c4c4; line-height: 1.65; margin: 0 0 16px;">Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag für die Fantasyliteratur. Der Meister der Fußnoten hat eine große Lücke hinterlassen, die niemand füllen kann.</div>
-          <span style="font-size: 12px; color: #E24B4A; font-weight: 500;">Weiterlesen →</span>
+          <span class="rd-mockup-hero-tag">Rezension · Buch</span>
+          <div class="rd-mockup-hero-title">Spiel mir das Lied vom Goblin</div>
+          <div class="rd-mockup-hero-meta">Joanna Müller-Lenz · 02.05.2026</div>
+          <div class="rd-mockup-hero-copy">Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag für die Fantasyliteratur. Der Meister der Fußnoten hat eine große Lücke hinterlassen, die niemand füllen kann.</div>
+          <span class="rd-mockup-hero-link">Weiterlesen →</span>
         </div>
       </div>
     </div>
 
-    <div style="padding: 14px 22px 12px; display: flex; justify-content: space-between; align-items: baseline; border-top: 0.5px solid #1f1f1f;">
-      <span style="font-size: 12px; font-weight: 500; color: #b4b4b4;">Aktuell aus der Redaktion</span>
-      <span style="font-size: 11px; color: #E24B4A;">Alle ansehen →</span>
+    <div class="rd-mockup-section-head">
+      <span class="rd-mockup-section-title">Aktuell aus der Redaktion</span>
+      <span class="rd-mockup-section-link">Alle ansehen →</span>
     </div>
 
-    <div style="padding: 4px 22px 26px;">
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+    <div class="rd-mockup-grid-wrap">
+      <div class="rd-mockup-card-grid">
 
-        <div>
-          <div style="aspect-ratio: 2/3; background: linear-gradient(135deg, #1a2440, #0a1224); border-radius: 4px; margin-bottom: 10px;"></div>
-          <div style="font-size: 11px; color: #E24B4A; font-weight: 500;">Film</div>
-          <div style="font-size: 12px; font-weight: 500; margin: 4px 0 2px; line-height: 1.3; color: #ffffff;">8 Blickwinkel</div>
-          <div style="font-size: 11px; color: #777;">Leonardo Beckert</div>
+        <div class="rd-mockup-card">
+          <div class="rd-mockup-card-cover rd-mockup-card-cover-film"></div>
+          <div class="rd-mockup-card-category">Film</div>
+          <div class="rd-mockup-card-title">8 Blickwinkel</div>
+          <div class="rd-mockup-card-author">Leonardo Beckert</div>
         </div>
 
-        <div>
-          <div style="aspect-ratio: 2/3; background: linear-gradient(135deg, #2a1a30, #100818); border-radius: 4px; margin-bottom: 10px;"></div>
-          <div style="font-size: 11px; color: #E24B4A; font-weight: 500;">Musik</div>
-          <div style="font-size: 12px; font-weight: 500; margin: 4px 0 2px; line-height: 1.3; color: #ffffff;">Fïx8:Sëd8 — Secret Gig</div>
-          <div style="font-size: 11px; color: #777;">Marcus Pohlmann</div>
+        <div class="rd-mockup-card">
+          <div class="rd-mockup-card-cover rd-mockup-card-cover-music"></div>
+          <div class="rd-mockup-card-category">Musik</div>
+          <div class="rd-mockup-card-title">Fïx8:Sëd8 — Secret Gig</div>
+          <div class="rd-mockup-card-author">Marcus Pohlmann</div>
         </div>
 
-        <div>
-          <div style="aspect-ratio: 2/3; background: linear-gradient(135deg, #1a3028, #08180e); border-radius: 4px; margin-bottom: 10px;"></div>
-          <div style="font-size: 11px; color: #E24B4A; font-weight: 500;">Spiel</div>
-          <div style="font-size: 12px; font-weight: 500; margin: 4px 0 2px; line-height: 1.3; color: #ffffff;">Shadow Cards</div>
-          <div style="font-size: 11px; color: #777;">Marcus Pohlmann</div>
+        <div class="rd-mockup-card">
+          <div class="rd-mockup-card-cover rd-mockup-card-cover-game"></div>
+          <div class="rd-mockup-card-category">Spiel</div>
+          <div class="rd-mockup-card-title">Shadow Cards</div>
+          <div class="rd-mockup-card-author">Marcus Pohlmann</div>
         </div>
 
-        <div>
-          <div style="aspect-ratio: 2/3; background: linear-gradient(135deg, #302418, #18100a); border-radius: 4px; margin-bottom: 10px;"></div>
-          <div style="font-size: 11px; color: #E24B4A; font-weight: 500;">Buch</div>
-          <div style="font-size: 12px; font-weight: 500; margin: 4px 0 2px; line-height: 1.3; color: #ffffff;">Noch fünf Tage</div>
-          <div style="font-size: 11px; color: #777;">Martin Wagner</div>
+        <div class="rd-mockup-card">
+          <div class="rd-mockup-card-cover rd-mockup-card-cover-book"></div>
+          <div class="rd-mockup-card-category">Buch</div>
+          <div class="rd-mockup-card-title">Noch fünf Tage</div>
+          <div class="rd-mockup-card-author">Martin Wagner</div>
         </div>
 
       </div>
