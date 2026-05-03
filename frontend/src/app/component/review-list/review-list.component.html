@@ -1,0 +1,12 @@
+<h2>Alle Rezensionen</h2>
+@if (reviews().length === 0) {
+  <p>Keine Rezensionen vorhanden.</p>
+} @else {
+  <ul>
+    @for (review of reviews(); track review.title) {
+      <li>
+        <strong>{{ review.title }}</strong> ({{ review.category }}): {{ review.rating }}/5 - {{ review.comment }}
+      </li>
+    }
+  </ul>
+}

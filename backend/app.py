@@ -182,6 +182,27 @@ def search():
         return jsonify({"data": [row_to_dict(cur, r) for r in rows]})
     except Error as e:
         return jsonify({"error": str(e)}), 500
+# ══════════════════════════════════════════════════════════════
+# ENDPOINT 5: Neue Rezension hinzufügen
+# POST /api/reviews
+# ══════════════════════════════════════════════════════════════
+@app.post("/api/reviews")
+def add_review():
+    data = request.get_json()
+    if not data or not all(k in data for k in ("title", "category", "rating", "comment")):
+        return jsonify({"error": "Fehlende Daten"}), 400
+
+    try:
+        db = get_db()
+        cur = db.cursor()
+        cur.execute("""
+            INSERT INTO reviews (title, media_type, rating, excerpt, content, published)
+            VALUES (%s, %s, %s, %s, %s, TRUE)
+        """, (data["title"], data["category"], data["rating"], data["comment"], data["comment"]))
+        db.commit()
+        return jsonify({"message": "Rezension hinzugefügt"}), 201
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
     finally:
         if db.is_connected():
             db.close()

@@ -1,0 +1,26 @@
+<h2>Neue Rezension hinzufügen</h2>
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Titel:</label>
+    <input id="title" type="text" formControlName="title" />
+  </div>
+  <div>
+    <label for="category">Kategorie:</label>
+    <select id="category" formControlName="category">
+      <option value="">-- Wähle eine Kategorie --</option>
+      <option value="Bücher">Bücher</option>
+      <option value="Musik">Musik</option>
+      <option value="Spiele">Spiele</option>
+      <option value="Filme">Filme</option>
+    </select>
+  </div>
+  <div>
+    <label for="rating">Bewertung (1-5):</label>
+    <input id="rating" type="number" formControlName="rating" min="1" max="5" />
+  </div>
+  <div>
+    <label for="comment">Kommentar:</label>
+    <textarea id="comment" formControlName="comment"></textarea>
+  </div>
+  <button type="submit" [disabled]="!reviewForm.valid">Hinzufügen</button>
+</form>
