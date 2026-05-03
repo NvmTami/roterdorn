@@ -19,9 +19,9 @@ Original-Website analysiert: roterdorn.de
 
 ### MVP — genau 3 Seiten:
 
-- / — Startseite mit Filter + Karten-Grid
-- /reviews/:id — Detailseite mit Metadaten
-- /search?q=... — Suchergebnisse
+- `/` — Startseite mit Filter + Karten-Grid
+- `/reviews/:id` — Detailseite mit Metadaten
+- `/search?q=...` — Suchergebnisse
 
 ### Bewusste Verbesserung gegenüber Original:
 - Rating sichtbar auf den Karten einbauen (im Original nirgendwo angezeigt) → guter Präsentationspunkt
