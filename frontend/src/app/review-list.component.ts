@@ -6,8 +6,8 @@ import { ReviewService, Review } from './review.service';
   selector: 'app-review-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './review-list.component.html',
-  styleUrl: './review-list.component.scss',
+  templateUrl: './component/review-list/review-list.component.html',
+  styleUrl: './component/review-list/review-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewListComponent implements OnInit {

@@ -7,8 +7,8 @@ import { ReviewService } from './review.service';
   selector: 'app-add-review',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './add-review.component.html',
-  styleUrl: './add-review.component.scss',
+  templateUrl: './component/add-review/add-review.component.html',
+  styleUrl: './component/add-review/add-review.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddReviewComponent {
