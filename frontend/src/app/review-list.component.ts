@@ -1,1 +1,0 @@
-export { ReviewListComponent } from './component/review-list/review-list.component';

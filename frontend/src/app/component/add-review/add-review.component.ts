@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReviewService } from '../../core/services/review.service';
 
 @Component({
   selector: 'app-add-review',
@@ -13,7 +14,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 export class AddReviewComponent {
   reviewForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private reviewService: ReviewService) {
     this.reviewForm = this.fb.group({
       title: ['', Validators.required],
       category: ['', Validators.required],
@@ -24,9 +25,12 @@ export class AddReviewComponent {
 
   onSubmit() {
     if (this.reviewForm.valid) {
-      console.log('Neue Rezension:', this.reviewForm.value);
-      // Hier später an Service senden
-      this.reviewForm.reset();
+      this.reviewService.addReview(this.reviewForm.value).subscribe({
+        next: () => {
+          this.reviewForm.reset();
+        },
+        error: (err) => console.error('Fehler beim Senden:', err),
+      });
     }
   }
 }

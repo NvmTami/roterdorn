@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Review, ReviewService } from '../../review.service';
+import { Review, ReviewService } from '../../core/services/review.service';
 
 interface HomeReview extends Review {
   author: string;
