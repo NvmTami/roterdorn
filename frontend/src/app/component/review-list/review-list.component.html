@@ -1,18 +1,5 @@
 <div class="homepage-shell">
-  <header class="site-header">
-    <a routerLink="/" class="brand" aria-label="Zur Startseite">
-      <span>roter</span>
-      <span class="brand-wedge" aria-hidden="true"></span>
-      <span>dorn</span>
-    </a>
-    <nav class="primary-nav" aria-label="Hauptnavigation">
-      <a routerLink="/">Bucher</a>
-      <a routerLink="/">Filme</a>
-      <a routerLink="/">Musik</a>
-      <a routerLink="/">Spiele</a>
-      <a routerLink="/">Redaktion</a>
-    </nav>
-  </header>
+  <app-header />
 
   <main class="home-content">
     @if (featuredReview(); as featured) {
@@ -21,7 +8,7 @@
           <span>Cover</span>
         </div>
         <article class="hero-text">
-          <span class="hero-tag">Rezension · {{ mapCategory(featured.media_type) }}</span>
+          <span class="hero-tag">Rezension · {{ featured.media_type | mediaType }}</span>
           <h1>{{ featured.title }}</h1>
           <p class="hero-meta">{{ featured.author }} · {{ featured.date }}</p>
           <p>{{ featured.excerpt }}</p>
@@ -43,8 +30,8 @@
       <div class="editorial-grid">
         @for (review of editorialReviews(); track review.title + review.media_type) {
           <article class="card">
-            <div class="card-cover" [class]="'card-cover category-' + normalizeCategory(review.media_type)"></div>
-            <p class="card-category">{{ mapCategory(review.media_type) }}</p>
+            <div class="card-cover" [class]="'card-cover category-' + review.media_type"></div>
+            <p class="card-category">{{ review.media_type | mediaType }}</p>
             <h3>{{ review.title }}</h3>
             <p class="card-author">{{ review.author }}</p>
           </article>

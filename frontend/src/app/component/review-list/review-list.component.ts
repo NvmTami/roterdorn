@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Review, ReviewService } from '../../core/services/review.service';
+import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
+import { HeaderComponent } from '../../layout/header/header.component';
 
 interface HomeReview extends Review {
   author: string;
@@ -11,7 +13,7 @@ interface HomeReview extends Review {
 @Component({
   selector: 'app-review-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent],
   templateUrl: './review-list.component.html',
   styleUrl: './review-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -107,21 +109,4 @@ export class ReviewListComponent {
     });
   }
 
-  mapCategory(mediaType: string): string {
-    switch (mediaType.trim().toLowerCase()) {
-      case 'buch':  return 'Buch';
-      case 'film':  return 'Film';
-      case 'musik': return 'Musik';
-      case 'spiel': return 'Spiel';
-      default:      return 'Rezension';
-    }
-  }
-
-  normalizeCategory(mediaType: string): string {
-    const value = mediaType.trim().toLowerCase();
-    if (['buch', 'film', 'musik', 'spiel'].includes(value)) {
-      return value;
-    }
-    return 'default';
-  }
 }
