@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 /** Entspricht dem GET-Response des Backends */
 export interface Review {
@@ -31,7 +32,7 @@ interface ReviewsResponse {
   providedIn: 'root',
 })
 export class ReviewService {
-  private apiUrl = 'http://localhost:5000/api/reviews';
+  private apiUrl = `${environment.apiUrl}/reviews`;
 
   constructor(private http: HttpClient) {}
 
