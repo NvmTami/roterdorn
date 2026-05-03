@@ -1,1 +1,240 @@
-/* Styles für review-list */
+.homepage-shell {
+	max-width: 1160px;
+	margin: 1.25rem auto;
+	background: #0d0d0d;
+	border-radius: 12px;
+	overflow: hidden;
+	border: 1px solid #1f1f1f;
+	color: #ffffff;
+}
+
+.site-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 1.4rem;
+	border-bottom: 1px solid #1f1f1f;
+}
+
+.brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: inherit;
+	text-decoration: none;
+	font-size: 1.1rem;
+	font-weight: 500;
+	letter-spacing: -0.03em;
+}
+
+.brand-wedge {
+	width: 0;
+	height: 0;
+	border-left: 18px solid #e24b4a;
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+}
+
+.primary-nav {
+	display: flex;
+	gap: 1.2rem;
+	font-size: 0.8rem;
+}
+
+.primary-nav a {
+	color: #c7c7c7;
+	text-decoration: none;
+}
+
+.primary-nav a:hover {
+	color: #ffffff;
+}
+
+.home-content {
+	padding: 1.4rem;
+}
+
+.hero {
+	display: grid;
+	grid-template-columns: 180px 1fr;
+	gap: 1.4rem;
+	align-items: start;
+	margin-bottom: 1.25rem;
+}
+
+.hero-cover {
+	aspect-ratio: 2 / 3;
+	border-radius: 5px;
+	background: linear-gradient(135deg, #5a2818 0%, #2a1208 100%);
+	display: flex;
+	align-items: flex-end;
+	padding: 0.7rem;
+	color: #c4806a;
+	font-size: 0.72rem;
+}
+
+.hero-text h1 {
+	margin: 0.8rem 0 0.45rem;
+	font-size: clamp(1.45rem, 3.3vw, 2rem);
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+}
+
+.hero-tag {
+	display: inline-block;
+	padding: 0.2rem 0.6rem;
+	border-radius: 4px;
+	background: #e24b4a;
+	color: #2a0808;
+	font-size: 0.72rem;
+	font-weight: 600;
+}
+
+.hero-meta {
+	margin: 0 0 0.9rem;
+	color: #888;
+	font-size: 0.78rem;
+}
+
+.hero-text p {
+	color: #c4c4c4;
+	line-height: 1.6;
+}
+
+.read-more {
+	color: #e24b4a;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.8rem;
+}
+
+.hero-empty {
+	min-height: 160px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #1f1f1f;
+	border-radius: 8px;
+}
+
+.editorial {
+	border-top: 1px solid #1f1f1f;
+	padding-top: 0.9rem;
+}
+
+.editorial-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 0.9rem;
+}
+
+.editorial-head h2 {
+	margin: 0;
+	font-size: 0.85rem;
+	color: #b4b4b4;
+	font-weight: 600;
+}
+
+.all-link {
+	color: #e24b4a;
+	text-decoration: none;
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.editorial-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0.9rem;
+}
+
+.card-cover {
+	aspect-ratio: 2 / 3;
+	border-radius: 4px;
+	margin-bottom: 0.65rem;
+}
+
+.category-film {
+	background: linear-gradient(135deg, #1a2440, #0a1224);
+}
+
+.category-musik {
+	background: linear-gradient(135deg, #2a1a30, #100818);
+}
+
+.category-spiel {
+	background: linear-gradient(135deg, #1a3028, #08180e);
+}
+
+.category-buch {
+	background: linear-gradient(135deg, #302418, #18100a);
+}
+
+.category-default {
+	background: linear-gradient(135deg, #2f2f2f, #121212);
+}
+
+.card-category {
+	margin: 0;
+	color: #e24b4a;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.card h3 {
+	margin: 0.25rem 0 0.2rem;
+	font-size: 0.8rem;
+	line-height: 1.3;
+}
+
+.card-author {
+	margin: 0;
+	color: #777;
+	font-size: 0.72rem;
+}
+
+@media (max-width: 980px) {
+	.editorial-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 760px) {
+	.site-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.primary-nav {
+		flex-wrap: wrap;
+		row-gap: 0.6rem;
+	}
+
+	.hero {
+		grid-template-columns: 1fr;
+	}
+
+	.hero-cover {
+		max-width: 260px;
+	}
+}
+
+@media (max-width: 520px) {
+	.homepage-shell {
+		margin: 0;
+		border-radius: 0;
+	}
+
+	.home-content,
+	.site-header {
+		padding: 1rem;
+	}
+
+	.editorial-grid {
+		grid-template-columns: 1fr;
+	}
+}

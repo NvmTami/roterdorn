@@ -1,12 +1,55 @@
-<h2>Alle Rezensionen</h2>
-@if (reviews().length === 0) {
-  <p>Keine Rezensionen vorhanden.</p>
-} @else {
-  <ul>
-    @for (review of reviews(); track review.title) {
-      <li>
-        <strong>{{ review.title }}</strong> ({{ review.category }}): {{ review.rating }}/5 - {{ review.comment }}
-      </li>
+<div class="homepage-shell">
+  <header class="site-header">
+    <a routerLink="/" class="brand" aria-label="Zur Startseite">
+      <span>roter</span>
+      <span class="brand-wedge" aria-hidden="true"></span>
+      <span>dorn</span>
+    </a>
+    <nav class="primary-nav" aria-label="Hauptnavigation">
+      <a routerLink="/">Bucher</a>
+      <a routerLink="/">Filme</a>
+      <a routerLink="/">Musik</a>
+      <a routerLink="/">Spiele</a>
+      <a routerLink="/">Redaktion</a>
+    </nav>
+  </header>
+
+  <main class="home-content">
+    @if (featuredReview(); as featured) {
+      <section class="hero" aria-label="Neueste Rezension">
+        <div class="hero-cover" role="img" [attr.aria-label]="'Cover von ' + featured.title">
+          <span>Cover</span>
+        </div>
+        <article class="hero-text">
+          <span class="hero-tag">Rezension · {{ mapCategory(featured.category) }}</span>
+          <h1>{{ featured.title }}</h1>
+          <p class="hero-meta">{{ featured.author }} · {{ featured.date }}</p>
+          <p>{{ featured.comment }}</p>
+          <a routerLink="/" class="read-more">Weiterlesen →</a>
+        </article>
+      </section>
+    } @else {
+      <section class="hero hero-empty" aria-label="Neueste Rezension">
+        <p>Noch keine Rezensionen vorhanden.</p>
+      </section>
     }
-  </ul>
-}
+
+    <section class="editorial" aria-label="Aktuell aus der Redaktion">
+      <div class="editorial-head">
+        <h2>Aktuell aus der Redaktion</h2>
+        <a routerLink="/" class="all-link">Alle ansehen →</a>
+      </div>
+
+      <div class="editorial-grid">
+        @for (review of editorialReviews(); track review.title + review.category) {
+          <article class="card">
+            <div class="card-cover" [class]="'card-cover category-' + normalizeCategory(review.category)"></div>
+            <p class="card-category">{{ mapCategory(review.category) }}</p>
+            <h3>{{ review.title }}</h3>
+            <p class="card-author">{{ review.author }}</p>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+</div>
