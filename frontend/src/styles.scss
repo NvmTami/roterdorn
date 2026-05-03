@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+	--brand-accent: #e24b4a;
+	--brand-surface-dark: #0d0d0d;
+	--brand-surface-light: #f4f3ee;
+	--brand-text-primary: #ffffff;
+	--brand-text-muted: #888888;
+}
+
+body {
+	margin: 0;
+	background: var(--brand-surface-dark);
+	color: var(--brand-text-primary);
+	font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
