@@ -28,3 +28,14 @@ Siehe `docs/SETUP.md`
 - **[Name2]:** Frontend / UI
 - **[Name3]:** Datenbank / Migration
 - **[Name4]:** Dokumentation / Präsentation
+
+
+  Frontend
+Anwendung starten
+Um den lokalen Entwicklungsserver zu starten, nutze:
+
+Bash
+ng serve --open
+Adresse: http://localhost:4200
+
+Auto-Reload: Die Seite aktualisiert sich bei jeder Code-Änderung von selbst.
