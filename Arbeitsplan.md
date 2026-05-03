@@ -74,3 +74,44 @@ MVP brutal definiert: genau 3 Seiten
 ### Bewusste Verbesserung gegenüber Original:
 
 - Rating-Feld sichtbar (im WP-Original gar nicht vorhanden)
+
+---
+
+Aktualisierter Plan bis zur Präsentation am 21.05.
+
+Schritt 3 — Wireframes auf Papier (1 Stunde, ganzes Team)
+Skizzen für alle 3 Seiten. Stift und Papier. Ergebnis: ein Foto im docs/-Ordner, das alle vier sehen.
+
+Schritt 4 — API-Vertrag festlegen (1 Stunde)
+Ein docs/api.md mit den Endpoints und exakten JSON-Responses. Sobald das steht, können Frontend und Backend parallel arbeiten ohne sich zu blockieren.
+
+Schritt 5 — Git-Workflow + Setup-Doku (30 Min)
+Branch-Strategie festlegen, README.md für Backend, Frontend und Database schreiben. Damit jeder im Team das Projekt von Null aufsetzen kann.
+
+Schritt 6 — Backend gegen die DB testen (2–3 Stunden, 1 Person)
+Existierender Flask-Code, neue DB. Endpoints durchprobieren mit curl oder Postman. Bugs fixen. Ergebnis: ein laufendes Backend das auf realen Daten antwortet.
+
+Schritt 7 — Frontend-Grundgerüst (1 Tag, 2 Personen)
+Routing aufsetzen, globales Styling (Schwarz/Weiß/Rot), Header-Komponente, Shared-Card-Komponente. Noch keine echten Daten.
+
+Schritt 8 — Frontend an Backend anschließen (1 Tag, 2 Personen)
+HTTP-Service in Angular, erste Komponente die echte Reviews lädt. Ab hier wird es konkret.
+
+Schritt 9 — Die drei Seiten ausbauen (3–4 Tage, ganzes Team)
+
+Startseite mit Filter
+Detailseite mit [innerHTML]
+Suche
+Parallel arbeiten möglich.
+
+Schritt 10 — Polishing (2 Tage)
+Responsive auf Smartphone testen, Loading-States, Error-Handling, leere Zustände ("Keine Ergebnisse"), Logo einbinden, Footer.
+
+Schritt 11 — Dokumentation + Präsentation (2 Tage)
+
+Projekt-Doku nach der Vorlage _Vorlage_Projektdokumentation_ITBerufe.pdf
+Slides für die Präsentation
+Demo-Skript: was klickt ihr live, in welcher Reihenfolge
+
+Schritt 12 — Generalprobe (1 Tag, ganzes Team)
+Komplette Präsentation einmal durchlaufen. Bugs aufschreiben, am Tag danach fixen. Kein neues Feature mehr ab hier.
