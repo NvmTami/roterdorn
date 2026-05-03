@@ -30,12 +30,22 @@ Siehe `docs/SETUP.md`
 - **[Name4]:** Dokumentation / Präsentation
 
 
-  Frontend
+##  Frontend
+installation:
+
+To install Angular CLI on your local system, you need to install Node.js. Angular CLI uses Node and its associated package manager, npm, to install and run JavaScript tools outside the browser.
+
+Download and install Node.js, which will include the npm CLI as well. Angular requires an active LTS or maintenance LTS version of Node.js. See Angular's version compatibility guide for more information.
+https://nodejs.org/en/download
+
+- **npm install -g @angular/cli**
+
 Anwendung starten
 Um den lokalen Entwicklungsserver zu starten, nutze:
 
 Bash
-ng serve --open
+- **ng serve --open**
 Adresse: http://localhost:4200
 
 Auto-Reload: Die Seite aktualisiert sich bei jeder Code-Änderung von selbst.
+
