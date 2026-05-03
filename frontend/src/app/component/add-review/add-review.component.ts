@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReviewService } from '../../core/services/review.service';
+import { ReviewInput, ReviewService } from '../../core/services/review.service';
 
 @Component({
   selector: 'app-add-review',
@@ -25,7 +25,7 @@ export class AddReviewComponent {
 
   onSubmit() {
     if (this.reviewForm.valid) {
-      this.reviewService.addReview(this.reviewForm.value).subscribe({
+      this.reviewService.addReview(this.reviewForm.value as ReviewInput).subscribe({
         next: () => {
           this.reviewForm.reset();
         },

@@ -21,43 +21,63 @@ export class ReviewListComponent {
 
   reviews = signal<HomeReview[]>([
     {
+      id: 0,
       title: 'Spiel mir das Lied vom Goblin',
-      category: 'Buch',
+      media_type: 'buch',
       rating: 5,
-      comment:
+      excerpt:
         'Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag fur die Fantasyliteratur. Der Meister der Fusnoten hat eine grosse Lucke hinterlassen, die niemand fullen kann.',
+      published_at: '2026-05-02',
+      cover_url: null,
+      author_name: 'Joanna Muller-Lenz',
       author: 'Joanna Muller-Lenz',
       date: '02.05.2026',
     },
     {
+      id: 0,
       title: '8 Blickwinkel',
-      category: 'Film',
+      media_type: 'film',
       rating: 4,
-      comment: 'Perspektivwechsel mit messerscharfem Timing und einem Finale, das nachhallt.',
+      excerpt: 'Perspektivwechsel mit messerscharfem Timing und einem Finale, das nachhallt.',
+      published_at: '2026-05-01',
+      cover_url: null,
+      author_name: 'Leonardo Beckert',
       author: 'Leonardo Beckert',
       date: '01.05.2026',
     },
     {
+      id: 0,
       title: 'Fix8Sed8 Secret Gig',
-      category: 'Musik',
+      media_type: 'musik',
       rating: 4,
-      comment: 'Ein druckvoller Live-Mitschnitt zwischen Industrial und dunklem Pop.',
+      excerpt: 'Ein druckvoller Live-Mitschnitt zwischen Industrial und dunklem Pop.',
+      published_at: '2026-04-29',
+      cover_url: null,
+      author_name: 'Marcus Pohlmann',
       author: 'Marcus Pohlmann',
       date: '29.04.2026',
     },
     {
+      id: 0,
       title: 'Shadow Cards',
-      category: 'Spiel',
+      media_type: 'spiel',
       rating: 4,
-      comment: 'Deckbuilding mit eleganter Risiko-Mechanik und viel Atmosphare.',
+      excerpt: 'Deckbuilding mit eleganter Risiko-Mechanik und viel Atmosphare.',
+      published_at: '2026-04-26',
+      cover_url: null,
+      author_name: 'Marcus Pohlmann',
       author: 'Marcus Pohlmann',
       date: '26.04.2026',
     },
     {
+      id: 0,
       title: 'Noch funf Tage',
-      category: 'Buch',
+      media_type: 'buch',
       rating: 4,
-      comment: 'Ein ruhiger Roman uber Aufbruch, Verlust und letzte Chancen.',
+      excerpt: 'Ein ruhiger Roman uber Aufbruch, Verlust und letzte Chancen.',
+      published_at: '2026-04-24',
+      cover_url: null,
+      author_name: 'Martin Wagner',
       author: 'Martin Wagner',
       date: '24.04.2026',
     },
@@ -73,10 +93,10 @@ export class ReviewListComponent {
           return;
         }
 
-        const mappedReviews: HomeReview[] = reviews.map((review, index) => ({
+        const mappedReviews: HomeReview[] = reviews.map((review) => ({
           ...review,
-          author: this.authorForCategory(review.category),
-          date: this.dateFromIndex(index),
+          author: review.author_name,
+          date: new Date(review.published_at).toLocaleDateString('de-DE'),
         }));
 
         this.reviews.set(mappedReviews);
@@ -87,61 +107,21 @@ export class ReviewListComponent {
     });
   }
 
-  mapCategory(category: string): string {
-    const normalized = this.normalizeCategory(category);
-
-    if (normalized === 'buch') {
-      return 'Buch';
+  mapCategory(mediaType: string): string {
+    switch (mediaType.trim().toLowerCase()) {
+      case 'buch':  return 'Buch';
+      case 'film':  return 'Film';
+      case 'musik': return 'Musik';
+      case 'spiel': return 'Spiel';
+      default:      return 'Rezension';
     }
-    if (normalized === 'film') {
-      return 'Film';
-    }
-    if (normalized === 'musik') {
-      return 'Musik';
-    }
-    if (normalized === 'spiel') {
-      return 'Spiel';
-    }
-
-    return 'Rezension';
   }
 
-  normalizeCategory(category: string): string {
-    const value = category.trim().toLowerCase();
-
-    if (value.startsWith('buch')) {
-      return 'buch';
+  normalizeCategory(mediaType: string): string {
+    const value = mediaType.trim().toLowerCase();
+    if (['buch', 'film', 'musik', 'spiel'].includes(value)) {
+      return value;
     }
-    if (value.startsWith('film')) {
-      return 'film';
-    }
-    if (value.startsWith('musik')) {
-      return 'musik';
-    }
-    if (value.startsWith('spiel')) {
-      return 'spiel';
-    }
-
     return 'default';
-  }
-
-  private authorForCategory(category: string): string {
-    const normalized = this.normalizeCategory(category);
-
-    if (normalized === 'film') {
-      return 'Leonardo Beckert';
-    }
-    if (normalized === 'musik' || normalized === 'spiel') {
-      return 'Marcus Pohlmann';
-    }
-
-    return 'Martin Wagner';
-  }
-
-  private dateFromIndex(index: number): string {
-    const date = new Date();
-    date.setDate(date.getDate() - index * 2);
-
-    return date.toLocaleDateString('de-DE');
   }
 }

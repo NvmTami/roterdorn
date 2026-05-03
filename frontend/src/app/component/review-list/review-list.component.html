@@ -21,10 +21,10 @@
           <span>Cover</span>
         </div>
         <article class="hero-text">
-          <span class="hero-tag">Rezension · {{ mapCategory(featured.category) }}</span>
+          <span class="hero-tag">Rezension · {{ mapCategory(featured.media_type) }}</span>
           <h1>{{ featured.title }}</h1>
           <p class="hero-meta">{{ featured.author }} · {{ featured.date }}</p>
-          <p>{{ featured.comment }}</p>
+          <p>{{ featured.excerpt }}</p>
           <a routerLink="/" class="read-more">Weiterlesen →</a>
         </article>
       </section>
@@ -41,10 +41,10 @@
       </div>
 
       <div class="editorial-grid">
-        @for (review of editorialReviews(); track review.title + review.category) {
+        @for (review of editorialReviews(); track review.title + review.media_type) {
           <article class="card">
-            <div class="card-cover" [class]="'card-cover category-' + normalizeCategory(review.category)"></div>
-            <p class="card-category">{{ mapCategory(review.category) }}</p>
+            <div class="card-cover" [class]="'card-cover category-' + normalizeCategory(review.media_type)"></div>
+            <p class="card-category">{{ mapCategory(review.media_type) }}</p>
             <h3>{{ review.title }}</h3>
             <p class="card-author">{{ review.author }}</p>
           </article>
