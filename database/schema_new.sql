@@ -28,13 +28,11 @@ CREATE TABLE reviews (
     excerpt      TEXT,
     rating       DECIMAL(2,1) CHECK (rating BETWEEN 0.0 AND 5.0),
     cover_url    VARCHAR(500),
-    published    BOOLEAN DEFAULT FALSE,
-    published_at DATETIME,
+    published_at DATETIME NULL,
     created_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (author_id) REFERENCES authors(id),
     INDEX idx_media_type (media_type),
-    INDEX idx_published  (published),
     INDEX idx_published_at (published_at)
 );
 
@@ -70,7 +68,6 @@ CREATE TABLE music_details (
     label           VARCHAR(150),
     release_date    DATE,
     runtime_minutes SMALLINT UNSIGNED,
-    tracklist       JSON,
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
 );
 
@@ -87,17 +84,17 @@ CREATE TABLE game_details (
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
 );
 
--- Tags / Schlagwörter (Many-to-Many)
-CREATE TABLE tags (
-    id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name  VARCHAR(100) UNIQUE NOT NULL,
-    slug  VARCHAR(100) UNIQUE NOT NULL
-);
+-- Phase 2 (nicht im MVP): Tags / Schlagwörter (Many-to-Many)
+-- CREATE TABLE tags (
+--     id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     name  VARCHAR(100) UNIQUE NOT NULL,
+--     slug  VARCHAR(100) UNIQUE NOT NULL
+-- );
 
-CREATE TABLE review_tags (
-    review_id INT UNSIGNED NOT NULL,
-    tag_id    INT UNSIGNED NOT NULL,
-    PRIMARY KEY (review_id, tag_id),
-    FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE,
-    FOREIGN KEY (tag_id)    REFERENCES tags(id)    ON DELETE CASCADE
-);
+-- CREATE TABLE review_tags (
+--     review_id INT UNSIGNED NOT NULL,
+--     tag_id    INT UNSIGNED NOT NULL,
+--     PRIMARY KEY (review_id, tag_id),
+--     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE,
+--     FOREIGN KEY (tag_id)    REFERENCES tags(id)    ON DELETE CASCADE
+-- );

@@ -54,7 +54,7 @@ def get_reviews():
                a.name AS author_name
         FROM reviews r
         JOIN authors a ON r.author_id = a.id
-        WHERE r.published = TRUE
+        WHERE r.published_at IS NOT NULL
     """
     params = []
 
@@ -96,7 +96,8 @@ def get_review(review_id):
             SELECT r.*, a.name AS author_name
             FROM reviews r
             JOIN authors a ON r.author_id = a.id
-            WHERE r.id = %s
+                        WHERE r.id = %s
+                            AND r.published_at IS NOT NULL
         """, (review_id,))
         row = cur.fetchone()
         if not row:
@@ -142,7 +143,7 @@ def get_stats():
                 COUNT(*) AS total,
                 ROUND(AVG(rating), 2) AS avg_rating
             FROM reviews
-            WHERE published = TRUE
+            WHERE published_at IS NOT NULL
             GROUP BY media_type
         """)
         rows = cur.fetchall()
@@ -173,7 +174,7 @@ def search():
                    r.excerpt, a.name AS author_name
             FROM reviews r
             JOIN authors a ON r.author_id = a.id
-            WHERE r.published = TRUE
+            WHERE r.published_at IS NOT NULL
               AND (r.title LIKE %s OR r.content LIKE %s)
             LIMIT 20
         """, (f"%{q}%", f"%{q}%"))
