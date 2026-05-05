@@ -18,4 +18,4 @@ app.register_blueprint(authors_bp)
 
 if __name__ == "__main__":
     print(f"RoterDorn API läuft auf http://localhost:{PORT}")
-    app.run(debug=DEBUG, port=PORT)
+    app.run(debug=DEBUG, port=PORT, host="0.0.0.0")

@@ -52,6 +52,7 @@ def get_reviews():
                 item["published_at"] = str(item["published_at"])
         return jsonify({"data": result, "count": len(result)})
     except Error as e:
+        print(f"[DB ERROR] get_reviews: {e}")
         return jsonify({"error": "Datenbankfehler"}), 500
     finally:
         if db and db.is_connected():
@@ -90,6 +91,7 @@ def get_review(review_id):
 
         return jsonify(review)
     except Error as e:
+        print(f"[DB ERROR] get_review: {e}")
         return jsonify({"error": "Datenbankfehler"}), 500
     finally:
         if db and db.is_connected():
