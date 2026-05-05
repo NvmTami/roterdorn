@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReviewService, Review } from '../../core/services/review.service';
 import { ReviewCardComponent } from '../../shared/review-card/review-card.component';
 import { HeaderComponent } from '../../layout/header/header.component';
@@ -63,11 +64,11 @@ export class CategoryListComponent {
   categoryTitle = signal('');
 
   constructor() {
-    this.route.data.subscribe((data) => {
+    this.route.data.pipe(takeUntilDestroyed()).subscribe((data) => {
       const type: string = data['type'];
       this.categoryTitle.set(CATEGORY_TITLES[type] ?? type);
       this.loading.set(true);
-      this.reviewService.getReviewsByType(type).subscribe({
+      this.reviewService.getReviewsByType(type).pipe(takeUntilDestroyed()).subscribe({
         next: (reviews) => { this.reviews.set(reviews); this.loading.set(false); },
         error: () => { this.error.set(true); this.loading.set(false); },
       });
