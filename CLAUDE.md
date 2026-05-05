@@ -36,7 +36,7 @@ Insert order matters due to foreign keys: `authors` → `reviews` → `*_details
 
 ### Frontend (Angular 21, SSR enabled)
 - Uses **standalone components** throughout — no NgModule
-- `src/app/core/routes.ts` defines the routes (not `app.routes.ts`, which is unused/legacy)
+- `src/app/core/routes.ts` defines the routes; `app.routes.ts` re-exports from it (Angular bootstrap reads `core/routes.ts` directly via `app.config.ts`)
 - `src/environments/environment.ts` holds `apiUrl` (`http://localhost:5000/api`) — change here for production
 - `ReviewService` (`core/services/`) is the single HTTP abstraction; all components use it via `inject()`
 - `ReviewListComponent` seeds hardcoded fallback reviews so the page renders even without a running backend; it replaces them with live data on success
