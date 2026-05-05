@@ -6,7 +6,6 @@ DB_CONFIG = {
     "user":     os.environ.get("DB_USER", "roterdorn"),
     "password": os.environ.get("DB_PASSWORD", "roterdorn"),
     "database": os.environ.get("DB_NAME", "roterdorn"),
-    "get_server_public_key": True,
 }
 
 CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:4200")
