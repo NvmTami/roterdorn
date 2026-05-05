@@ -7,6 +7,7 @@ services:
       MYSQL_USER: roterdorn
       MYSQL_PASSWORD: roterdorn
     volumes:
+      - ./database/00-user.sql:/docker-entrypoint-initdb.d/00-user.sql
       - ./database/dorn_db.sql:/docker-entrypoint-initdb.d/01-dump.sql
       - ./database/schema.sql:/docker-entrypoint-initdb.d/02-schema.sql
       - ./database/migrate.sql:/docker-entrypoint-initdb.d/03-migrate.sql
