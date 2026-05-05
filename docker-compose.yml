@@ -4,6 +4,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: roterdorn
       MYSQL_DATABASE: roterdorn
+      MYSQL_USER: roterdorn
+      MYSQL_PASSWORD: roterdorn
     volumes:
       - ./database/schema_new.sql:/docker-entrypoint-initdb.d/01-schema.sql
       - ./database/seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
