@@ -88,6 +88,20 @@ export class ReviewListComponent {
   featuredReview = computed(() => this.reviews()[0]);
   editorialReviews = computed(() => this.reviews().slice(1, 5));
 
+  readonly activeFilter = signal('alle');
+
+  readonly filterTabs = [
+    { label: 'Alle',    value: 'alle',    count: 847 },
+    { label: 'Bücher',  value: 'buecher', count: 312 },
+    { label: 'Filme',   value: 'filme',   count: 198 },
+    { label: 'Musik',   value: 'musik',   count: 214 },
+    { label: 'Spiele',  value: 'spiele',  count: 123 },
+  ];
+
+  setFilter(value: string): void {
+    this.activeFilter.set(value);
+  }
+
   constructor() {
     this.reviewService.getReviews().subscribe({
       next: (reviews) => {

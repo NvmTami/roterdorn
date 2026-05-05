@@ -1,42 +1,69 @@
 <div class="homepage-shell">
   <app-header />
 
-  <main class="home-content">
-    @if (featuredReview(); as featured) {
-      <section class="hero" aria-label="Neueste Rezension">
-        <div class="hero-cover" role="img" [attr.aria-label]="'Cover von ' + featured.title">
-          <span>Cover</span>
+  @if (featuredReview(); as featured) {
+    <section class="hero" aria-label="Neueste Rezension">
+      <div class="hero__cover" aria-hidden="true"><span>Cover</span></div>
+      <div class="hero__content">
+        <span class="badge">Rezension · {{ featured.media_type | mediaType }}</span>
+        <h1 class="hero__title">{{ featured.title }}</h1>
+        <p class="hero__meta">{{ featured.author }} · {{ featured.date }}</p>
+        <p class="hero__excerpt">{{ featured.excerpt }}</p>
+        <div class="hero__actions">
+          <a [routerLink]="['/review', featured.id]" class="read-more">Weiterlesen →</a>
+          <div class="inline-rating">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+              <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
+            </svg>
+            <span class="inline-rating__text">{{ featured.rating * 2 }}/10</span>
+          </div>
         </div>
-        <article class="hero-text">
-          <span class="hero-tag">Rezension · {{ featured.media_type | mediaType }}</span>
-          <h1>{{ featured.title }}</h1>
-          <p class="hero-meta">{{ featured.author }} · {{ featured.date }}</p>
-          <p>{{ featured.excerpt }}</p>
-          <a routerLink="/" class="read-more">Weiterlesen →</a>
-        </article>
-      </section>
-    } @else {
-      <section class="hero hero-empty" aria-label="Neueste Rezension">
-        <p>Noch keine Rezensionen vorhanden.</p>
-      </section>
-    }
-
-    <section class="editorial" aria-label="Aktuell aus der Redaktion">
-      <div class="editorial-head">
-        <h2>Aktuell aus der Redaktion</h2>
-        <a routerLink="/" class="all-link">Alle ansehen →</a>
-      </div>
-
-      <div class="editorial-grid">
-        @for (review of editorialReviews(); track review.title + review.media_type) {
-          <article class="card">
-            <div class="card-cover" [class]="'card-cover category-' + review.media_type"></div>
-            <p class="card-category">{{ review.media_type | mediaType }}</p>
-            <h3>{{ review.title }}</h3>
-            <p class="card-author">{{ review.author }}</p>
-          </article>
-        }
       </div>
     </section>
-  </main>
+  } @else {
+    <section class="hero hero--empty" aria-label="Neueste Rezension">
+      <p>Noch keine Rezensionen vorhanden.</p>
+    </section>
+  }
+
+  <div class="filter-bar">
+    <div class="filter-tabs" role="group" aria-label="Kategoriefilter">
+      @for (tab of filterTabs; track tab.value) {
+        <button
+          class="btn-filter"
+          [class.btn-filter--active]="activeFilter() === tab.value"
+          (click)="setFilter(tab.value)"
+          [attr.aria-pressed]="activeFilter() === tab.value"
+        >
+          {{ tab.label }} <span class="btn-filter__count">{{ tab.count }}</span>
+        </button>
+      }
+    </div>
+    <select class="sort-select" aria-label="Sortierung">
+      <option>Neueste zuerst</option>
+      <option>Beste Bewertung</option>
+      <option>A–Z</option>
+    </select>
+  </div>
+
+  <div class="reviews-grid">
+    @for (review of editorialReviews(); track review.title + review.media_type) {
+      <article class="review-card">
+        <div class="review-card__cover" [class]="'review-card__cover--' + review.media_type" aria-hidden="true"></div>
+        <div class="review-card__body">
+          <div class="review-card__type">{{ review.media_type | mediaType }}</div>
+          <div class="review-card__title">{{ review.title }}</div>
+          <div class="review-card__author">{{ review.author }}</div>
+          <div class="card-rating">
+            <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+              <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
+            </svg>
+            <span class="card-rating__text">{{ review.rating * 2 }}/10</span>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  <div class="pagination-hint">Seite 1 von 106 · Mehr laden →</div>
 </div>
