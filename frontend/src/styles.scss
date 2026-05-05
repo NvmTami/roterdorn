@@ -1,14 +1,27 @@
 :root {
-	--brand-accent: #e24b4a;
-	--brand-surface-dark: #0d0d0d;
-	--brand-surface-light: #f4f3ee;
-	--brand-text-primary: #ffffff;
-	--brand-text-muted: #888888;
+  --font-sans:  'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-mono:  'Courier New', Courier, monospace;
+  --border-radius-lg: 10px;
+  --border-radius-md: 6px;
+  --accent:        #e63946;
+  --bg-base:       #0e0e0e;
+  --text-primary:  #f0ece4;
+  --text-soft:     #c9c4b8;
+  --text-muted:    #8a857c;
+  --text-faint:    #b8b3a8;
+  --text-dim:      #6b6760;
+  --surface:       #1a1a1a;
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-btn:    rgba(255, 255, 255, 0.18);
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
-	margin: 0;
-	background: var(--brand-surface-dark);
-	color: var(--brand-text-primary);
-	font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
 }
