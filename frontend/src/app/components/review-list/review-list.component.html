@@ -4,15 +4,19 @@
   <main class="home-content">
     @if (featuredReview(); as featured) {
       <section class="hero" aria-label="Neueste Rezension">
-        <div class="hero-cover" role="img" [attr.aria-label]="'Cover von ' + featured.title">
-          <span>Cover</span>
-        </div>
+        @if (featured.cover_url) {
+          <img class="hero-cover" [src]="featured.cover_url" [alt]="'Cover von ' + featured.title" />
+        } @else {
+          <div class="hero-cover hero-cover-placeholder" [class]="'category-' + featured.media_type">
+            <span>Cover</span>
+          </div>
+        }
         <article class="hero-text">
           <span class="hero-tag">Rezension · {{ featured.media_type | mediaType }}</span>
           <h1>{{ featured.title }}</h1>
-          <p class="hero-meta">{{ featured.author }} · {{ featured.date }}</p>
+          <p class="hero-meta">{{ featured.author_name }} · {{ featured.published_at | date:'dd.MM.yyyy' }}</p>
           <p>{{ featured.excerpt }}</p>
-          <a routerLink="/" class="read-more">Weiterlesen →</a>
+          <a [routerLink]="['/' + featured.media_type, featured.id]" class="read-more">Weiterlesen →</a>
         </article>
       </section>
     } @else {
@@ -24,17 +28,10 @@
     <section class="editorial" aria-label="Aktuell aus der Redaktion">
       <div class="editorial-head">
         <h2>Aktuell aus der Redaktion</h2>
-        <a routerLink="/" class="all-link">Alle ansehen →</a>
       </div>
-
       <div class="editorial-grid">
-        @for (review of editorialReviews(); track review.title + review.media_type) {
-          <article class="card">
-            <div class="card-cover" [class]="'card-cover category-' + review.media_type"></div>
-            <p class="card-category">{{ review.media_type | mediaType }}</p>
-            <h3>{{ review.title }}</h3>
-            <p class="card-author">{{ review.author }}</p>
-          </article>
+        @for (review of editorialReviews(); track review.id) {
+          <app-review-card [review]="review" />
         }
       </div>
     </section>
