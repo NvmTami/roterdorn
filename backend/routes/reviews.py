@@ -19,7 +19,9 @@ VALID_MEDIA_TYPES = set(DETAIL_TABLES.keys())
 @reviews_bp.get("/reviews")
 def get_reviews():
     media_type = request.args.get("type")
-    limit      = request.args.get("limit", 20)
+    limit      = int(request.args.get("limit", 20))
+    page       = int(request.args.get("page", 1))
+    offset     = (page - 1) * limit
 
     query = """
         SELECT r.id, r.title, r.media_type, r.rating,
@@ -35,8 +37,8 @@ def get_reviews():
         query += " AND r.media_type = %s"
         params.append(media_type)
 
-    query += " ORDER BY r.published_at DESC LIMIT %s"
-    params.append(int(limit))
+    query += " ORDER BY r.published_at DESC LIMIT %s OFFSET %s"
+    params.extend([limit, offset])
 
     db = None
     try:
@@ -131,7 +133,7 @@ def search():
         cur = db.cursor()
         cur.execute("""
             SELECT r.id, r.title, r.media_type, r.rating,
-                   r.excerpt, a.name AS author_name
+                   r.excerpt, r.cover_url, r.published_at, a.name AS author_name
             FROM reviews r
             JOIN authors a ON r.author_id = a.id
             WHERE r.published_at IS NOT NULL
@@ -139,7 +141,11 @@ def search():
             LIMIT 20
         """, (f"%{q}%", f"%{q}%"))
         rows = cur.fetchall()
-        return jsonify({"data": [row_to_dict(cur, r) for r in rows]})
+        result = [row_to_dict(cur, r) for r in rows]
+        for item in result:
+            if item.get("published_at"):
+                item["published_at"] = str(item["published_at"])
+        return jsonify({"data": result})
     except Error as e:
         return jsonify({"error": "Datenbankfehler"}), 500
     finally:
