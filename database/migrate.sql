@@ -63,17 +63,17 @@ LEFT JOIN wp_postmeta pm ON pm.post_id = r.id
 GROUP BY r.id;
 
 -- ── Filmdetails ───────────────────────────────────────────────
-INSERT INTO film_details (review_id, runtime_minutes, fsk, release_date, language)
+INSERT INTO film_details (review_id, runtime_minutes, fsk, release_year, language)
 SELECT
     r.id,
-    MAX(CASE WHEN pm.meta_key = 'filmlaufzeit'      THEN NULLIF(pm.meta_value, '') END),
-    MAX(CASE WHEN pm.meta_key = 'fsk'               THEN NULLIF(pm.meta_value, '') END),
+    MAX(CASE WHEN pm.meta_key = 'filmlaufzeit' THEN NULLIF(pm.meta_value, '') END),
+    MAX(CASE WHEN pm.meta_key = 'fsk'          THEN NULLIF(pm.meta_value, '') END),
     MAX(CASE WHEN pm.meta_key = 'erscheinungsdatum' THEN
         CASE WHEN pm.meta_value REGEXP '^[0-9]{8}$'
-             THEN STR_TO_DATE(pm.meta_value, '%Y%m%d')
+             THEN YEAR(STR_TO_DATE(pm.meta_value, '%Y%m%d'))
              ELSE NULL END
     END),
-    MAX(CASE WHEN pm.meta_key = 'sprache'           THEN NULLIF(pm.meta_value, '') END)
+    MAX(CASE WHEN pm.meta_key = 'sprache'      THEN NULLIF(pm.meta_value, '') END)
 FROM reviews r
 JOIN wp_posts p ON p.ID = r.id AND p.post_type = 'film'
 LEFT JOIN wp_postmeta pm ON pm.post_id = r.id
