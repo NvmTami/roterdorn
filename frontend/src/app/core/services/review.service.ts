@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-/** Entspricht dem GET-Response des Backends */
 export interface Review {
   id: number;
   title: string;
@@ -15,7 +14,12 @@ export interface Review {
   author_name: string;
 }
 
-/** Entspricht dem POST-Body des Backends */
+export interface ReviewDetail extends Review {
+  content: string;
+  created_at: string;
+  details?: Record<string, unknown>;
+}
+
 export interface ReviewInput {
   title: string;
   category: string;
@@ -28,21 +32,32 @@ interface ReviewsResponse {
   count: number;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ReviewService {
-  private apiUrl = `${environment.apiUrl}/reviews`;
-
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+  private base = `${environment.apiUrl}/reviews`;
 
   getReviews(): Observable<Review[]> {
-    return this.http.get<ReviewsResponse>(this.apiUrl).pipe(
-      map((response) => response.data)
-    );
+    return this.http.get<ReviewsResponse>(this.base).pipe(map((r) => r.data));
+  }
+
+  getReviewsByType(type: string, page = 1): Observable<Review[]> {
+    return this.http
+      .get<ReviewsResponse>(this.base, { params: { type, page: String(page) } })
+      .pipe(map((r) => r.data));
+  }
+
+  getReviewById(id: number): Observable<ReviewDetail> {
+    return this.http.get<ReviewDetail>(`${this.base}/${id}`);
+  }
+
+  search(q: string): Observable<Review[]> {
+    return this.http
+      .get<{ data: Review[] }>(`${environment.apiUrl}/search`, { params: { q } })
+      .pipe(map((r) => r.data));
   }
 
   addReview(review: ReviewInput): Observable<{ message: string; id: number }> {
-    return this.http.post<{ message: string; id: number }>(this.apiUrl, review);
+    return this.http.post<{ message: string; id: number }>(this.base, review);
   }
 }
