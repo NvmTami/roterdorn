@@ -1,224 +1,280 @@
-.rd-mockup-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+/* ============================================================
+   Roter Dorn – Homepage Mockup Stylesheet
+   ============================================================ */
+
+:root {
+  --font-sans:   'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif:  Georgia, 'Times New Roman', serif;
+  --font-mono:   'Courier New', Courier, monospace;
+  --border-radius-lg: 10px;
+  --border-radius-md: 6px;
+  --accent: #e63946;
+  --bg-base: #0e0e0e;
+  --text-primary: #f0ece4;
+  --text-soft: #c9c4b8;
+  --text-muted: #8a857c;
+  --text-faint: #b8b3a8;
+  --text-dim: #6b6760;
+  --surface: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-btn: rgba(255, 255, 255, 0.18);
 }
 
-.rd-mockup-shell {
-  background: var(--color-background-secondary);
-  border-radius: var(--border-radius-lg);
-  padding: 12px;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-.rd-mockup-windowbar {
+body {
+  margin: 0;
+  background: #181818;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 8px 12px;
-}
-
-.rd-mockup-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.rd-mockup-dot-red {
-  background: #ff5f57;
-}
-
-.rd-mockup-dot-yellow {
-  background: #febc2e;
-}
-
-.rd-mockup-dot-green {
-  background: #28c840;
-}
-
-.rd-mockup-address {
-  margin-left: 12px;
-  padding: 4px 14px;
-  background: var(--color-background-primary);
-  border-radius: 4px;
-  font-size: 11px;
-  color: var(--color-text-secondary);
-  border: 0.5px solid var(--color-border-tertiary);
-}
-
-.rd-mockup-browser {
-  background: #0d0d0d;
-  border-radius: 6px;
-  overflow: hidden;
-  color: #ffffff;
-}
-
-.rd-mockup-topnav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 22px;
-  border-bottom: 0.5px solid #1f1f1f;
-}
-
-.rd-mockup-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  justify-content: center;
+  padding: 32px 16px;
   font-family: var(--font-sans);
-  font-size: 17px;
+}
+
+/* ── Page shell ─────────────────────────────────────────── */
+
+.mockup {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ── Site header ─────────────────────────────────────────── */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
   font-weight: 500;
-  letter-spacing: -0.5px;
-  color: #ffffff;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
 }
 
-.rd-mockup-logo-arrow {
-  display: block;
-}
-
-.rd-mockup-nav-links {
+.primary-nav {
   display: flex;
   gap: 24px;
-  font-size: 12px;
-  color: #d4d4d4;
+  font-size: 14px;
+  color: var(--text-faint);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.rd-mockup-nav-muted {
-  color: #888;
-}
+.primary-nav__item--active { color: var(--text-primary); }
+.primary-nav__item--dim    { color: var(--text-dim); }
 
-.rd-mockup-hero-wrap {
-  padding: 28px 22px 20px;
-}
+/* ── Hero section ────────────────────────────────────────── */
 
-.rd-mockup-hero-grid {
+.hero {
   display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 22px;
-  align-items: start;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  padding: 28px;
 }
 
-.rd-mockup-hero-cover {
-  aspect-ratio: 2 / 3;
-  background: linear-gradient(135deg, #5a2818 0%, #2a1208 100%);
-  border-radius: 4px;
+.hero__cover {
+  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
+  border-radius: var(--border-radius-md);
+  aspect-ratio: 3 / 4;
   display: flex;
   align-items: flex-end;
-  padding: 10px;
-  font-size: 11px;
-  color: #c4806a;
+  padding: 14px;
+  font-size: 12px;
+  color: rgba(240, 236, 228, 0.5);
 }
 
-.rd-mockup-hero-tag {
+.badge {
   display: inline-block;
-  background: #e24b4a;
-  color: #2a0808;
+  background: var(--accent);
+  color: #fff;
   font-size: 11px;
   font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
 }
 
-.rd-mockup-hero-title {
-  font-size: 25px;
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: 32px;
   font-weight: 500;
   margin: 12px 0 6px;
   line-height: 1.15;
-  color: #ffffff;
-  letter-spacing: -0.5px;
+  color: var(--text-primary);
 }
 
-.rd-mockup-hero-meta {
-  font-size: 12px;
-  color: #888;
+.hero__meta {
+  font-size: 13px;
+  color: var(--text-muted);
   margin: 0 0 14px;
 }
 
-.rd-mockup-hero-copy {
-  font-size: 13px;
-  color: #c4c4c4;
+.hero__excerpt {
+  font-size: 15px;
   line-height: 1.65;
+  color: var(--text-soft);
   margin: 0 0 16px;
 }
 
-.rd-mockup-hero-link {
-  font-size: 12px;
-  color: #e24b4a;
-  font-weight: 500;
-}
-
-.rd-mockup-section-head {
-  padding: 14px 22px 12px;
+.hero__actions {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-top: 0.5px solid #1f1f1f;
+  align-items: center;
+  gap: 16px;
 }
 
-.rd-mockup-section-title {
-  font-size: 12px;
+.read-more {
+  color: var(--accent);
+  font-size: 14px;
   font-weight: 500;
-  color: #b4b4b4;
+  text-decoration: none;
 }
 
-.rd-mockup-section-link {
-  font-size: 11px;
-  color: #e24b4a;
+.inline-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.rd-mockup-grid-wrap {
-  padding: 4px 22px 26px;
+.inline-rating__text {
+  font-size: 13px;
+  color: var(--text-soft);
+  font-weight: 500;
 }
 
-.rd-mockup-card-grid {
+/* ── Filter bar ──────────────────────────────────────────── */
+
+.filter-bar {
+  padding: 24px 28px 12px;
+  border-top: 0.5px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-filter {
+  background: transparent;
+  color: var(--text-soft);
+  border: 0.5px solid var(--border-btn);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.btn-filter--active {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-filter__count {
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
+.sort-select {
+  background: transparent;
+  color: var(--text-soft);
+  border: 0.5px solid var(--border-btn);
+  padding: 7px 12px;
+  border-radius: var(--border-radius-md);
+  font-size: 13px;
+  font-family: var(--font-sans);
+}
+
+/* ── Reviews grid ────────────────────────────────────────── */
+
+.reviews-grid {
+  padding: 16px 28px 28px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
-.rd-mockup-card-cover {
-  aspect-ratio: 2 / 3;
-  border-radius: 4px;
-  margin-bottom: 10px;
+.review-card {
+  background: var(--surface);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 0.5px solid var(--border-subtle);
 }
 
-.rd-mockup-card-cover-film {
-  background: linear-gradient(135deg, #1a2440, #0a1224);
+.review-card__cover {
+  aspect-ratio: 3 / 4;
 }
 
-.rd-mockup-card-cover-music {
-  background: linear-gradient(135deg, #2a1a30, #100818);
+.review-card__cover--film  { background: #1a2845; }
+.review-card__cover--musik { background: #2a1838; }
+.review-card__cover--spiel { background: #0e2a20; }
+.review-card__cover--buch  { background: #3a1c0e; }
+.review-card__cover--buch-teal { background: #1a3838; }
+.review-card__cover--spiel-gold { background: #2a2410; }
+.review-card__cover--musik-red  { background: #38101a; }
+.review-card__cover--film-dark  { background: #1c1c2e; }
+
+.review-card__body {
+  padding: 12px;
 }
 
-.rd-mockup-card-cover-game {
-  background: linear-gradient(135deg, #1a3028, #08180e);
-}
-
-.rd-mockup-card-cover-book {
-  background: linear-gradient(135deg, #302418, #18100a);
-}
-
-.rd-mockup-card-category {
+.review-card__type {
   font-size: 11px;
-  color: #e24b4a;
+  color: var(--accent);
   font-weight: 500;
+  margin-bottom: 4px;
 }
 
-.rd-mockup-card-title {
+.review-card__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.review-card__author {
   font-size: 12px;
-  font-weight: 500;
-  margin: 4px 0 2px;
-  line-height: 1.3;
-  color: #ffffff;
+  color: var(--text-muted);
 }
 
-.rd-mockup-card-author {
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.card-rating__text {
   font-size: 11px;
-  color: #777;
+  color: var(--text-faint);
+  font-weight: 500;
+}
+
+/* ── Pagination hint ─────────────────────────────────────── */
+
+.pagination-hint {
+  text-align: center;
+  padding: 0 28px 24px;
+  font-size: 12px;
+  color: var(--text-dim);
 }

@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roter Dorn – Suche (Mockup)</title>
+  <link rel="stylesheet" href="roterdorn_search_mockup.css" />
+</head>
+<body>
+
+<div class="mockup">
+
+  <header class="site-header">
+    <a href="#" class="brand">
+      <span>roter</span>
+      <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+        <polygon points="0,0 20,7 0,14" fill="#e63946" />
+      </svg>
+      <span>dorn</span>
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul class="primary-nav">
+        <li>Bücher</li>
+        <li>Filme</li>
+        <li>Musik</li>
+        <li>Spiele</li>
+        <li class="primary-nav__item--dim">Redaktion</li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="search-header">
+    <div class="search-input-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+        <circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="11" y1="11" x2="16" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input type="text" class="search-input" value="pratchett" aria-label="Suchbegriff" />
+    </div>
+    <div class="search-summary">
+      <p class="search-summary__text">
+        <span class="search-summary__count">12 Treffer</span> für „pratchett"
+      </p>
+      <span class="search-summary__time">in 47 ms</span>
+    </div>
+  </div>
+
+  <div class="search-controls">
+    <div class="filter-tabs">
+      <button class="btn-filter btn-filter--active">Alle <span class="btn-filter__count">12</span></button>
+      <button class="btn-filter">Bücher <span class="btn-filter__count">8</span></button>
+      <button class="btn-filter">Filme <span class="btn-filter__count">2</span></button>
+      <button class="btn-filter btn-filter--empty">Musik <span class="btn-filter__count">0</span></button>
+      <button class="btn-filter">Spiele <span class="btn-filter__count">2</span></button>
+    </div>
+    <select class="sort-select">
+      <option>Relevanz</option>
+      <option>Neueste</option>
+      <option>Beste Bewertung</option>
+    </select>
+  </div>
+
+  <div class="top-result-wrap">
+    <article class="top-result">
+      <div class="top-result__cover"></div>
+      <div class="top-result__body">
+        <div class="top-result__badges">
+          <span class="badge-type">Buch</span>
+          <span class="badge-top">Top-Treffer</span>
+        </div>
+        <h2 class="top-result__title">Spiel mir das Lied vom Goblin</h2>
+        <p class="top-result__meta">Joanna Müller-Lenz · 02.05.2026</p>
+        <p class="top-result__excerpt">
+          Der Tag, an dem Terry
+          <mark>Pratchett</mark>
+          starb, war ein schwarzer Tag für die Fantasyliteratur. Eine eigenständige Hommage…
+        </p>
+        <div class="top-result__rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/>
+          </svg>
+          <span>8/10</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="results-grid">
+
+    <article class="result-card">
+      <div class="result-card__cover result-card__cover--blue"></div>
+      <div class="result-card__body">
+        <div class="result-card__type">Buch</div>
+        <div class="result-card__title">Going Postal</div>
+        <div class="result-card__author">Terry <mark>Pratchett</mark></div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/>
+          </svg>
+          <span class="card-rating__text">10/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="result-card">
+      <div class="result-card__cover result-card__cover--purple"></div>
+      <div class="result-card__body">
+        <div class="result-card__type">Film</div>
+        <div class="result-card__title">Hogfather</div>
+        <div class="result-card__author">nach Terry <mark>Pratchett</mark></div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/>
+          </svg>
+          <span class="card-rating__text">7/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="result-card">
+      <div class="result-card__cover result-card__cover--green"></div>
+      <div class="result-card__body">
+        <div class="result-card__type">Buch</div>
+        <div class="result-card__title">Mort</div>
+        <div class="result-card__author">Terry <mark>Pratchett</mark></div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/>
+          </svg>
+          <span class="card-rating__text">9/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="result-card">
+      <div class="result-card__cover result-card__cover--brown"></div>
+      <div class="result-card__body">
+        <div class="result-card__type">Spiel</div>
+        <div class="result-card__title">Discworld: Ankh-Morpork</div>
+        <div class="result-card__author">Martin Wallace</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/>
+          </svg>
+          <span class="card-rating__text">8/10</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="load-more">Mehr laden →</div>
+
+</div>
+
+</body>
+</html>
