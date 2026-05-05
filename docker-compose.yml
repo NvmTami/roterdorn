@@ -7,8 +7,9 @@ services:
       MYSQL_USER: roterdorn
       MYSQL_PASSWORD: roterdorn
     volumes:
-      - ./database/schema_new.sql:/docker-entrypoint-initdb.d/01-schema.sql
-      - ./database/seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
+      - ./database/dorn_db.sql:/docker-entrypoint-initdb.d/01-dump.sql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/02-schema.sql
+      - ./database/migrate.sql:/docker-entrypoint-initdb.d/03-migrate.sql
       - db_data:/var/lib/mysql
     ports:
       - "3307:3306"

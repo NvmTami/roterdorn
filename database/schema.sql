@@ -1,16 +1,4 @@
--- ============================================================
--- RoterDorn - Neues Datenbankschema
--- Begründung: Statt alles in wp_posts + wp_postmeta (Key-Value)
--- zu speichern, bekommt jeder Medientyp eine eigene Tabelle.
--- Das ermöglicht typsichere Abfragen, bessere Performance
--- und einfachere Filterung.
--- ============================================================
-
-CREATE DATABASE IF NOT EXISTS roterdorn CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE roterdorn;
-
--- Autoren / Redakteure
-CREATE TABLE authors (
+CREATE TABLE IF NOT EXISTS authors (
     id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(100) NOT NULL,
     email       VARCHAR(150) UNIQUE,
@@ -18,8 +6,7 @@ CREATE TABLE authors (
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Basis-Tabelle für alle Rezensionen
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
     id           INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     author_id    INT UNSIGNED NOT NULL,
     media_type   ENUM('buch','film','musik','spiel') NOT NULL,
@@ -36,8 +23,7 @@ CREATE TABLE reviews (
     INDEX idx_published_at (published_at)
 );
 
--- Buch-spezifische Felder
-CREATE TABLE book_details (
+CREATE TABLE IF NOT EXISTS book_details (
     review_id       INT UNSIGNED PRIMARY KEY,
     isbn            VARCHAR(17),
     page_count      SMALLINT UNSIGNED,
@@ -49,8 +35,7 @@ CREATE TABLE book_details (
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
 );
 
--- Film-spezifische Felder
-CREATE TABLE film_details (
+CREATE TABLE IF NOT EXISTS film_details (
     review_id       INT UNSIGNED PRIMARY KEY,
     director        VARCHAR(150),
     studio          VARCHAR(150),
@@ -61,8 +46,7 @@ CREATE TABLE film_details (
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
 );
 
--- Musik-spezifische Felder
-CREATE TABLE music_details (
+CREATE TABLE IF NOT EXISTS music_details (
     review_id       INT UNSIGNED PRIMARY KEY,
     artist          VARCHAR(150),
     label           VARCHAR(150),
@@ -71,8 +55,7 @@ CREATE TABLE music_details (
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
 );
 
--- Spiel-spezifische Felder
-CREATE TABLE game_details (
+CREATE TABLE IF NOT EXISTS game_details (
     review_id       INT UNSIGNED PRIMARY KEY,
     developer       VARCHAR(150),
     publisher       VARCHAR(150),
@@ -83,18 +66,3 @@ CREATE TABLE game_details (
     max_players     TINYINT UNSIGNED,
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
 );
-
--- Phase 2 (nicht im MVP): Tags / Schlagwörter (Many-to-Many)
--- CREATE TABLE tags (
---     id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
---     name  VARCHAR(100) UNIQUE NOT NULL,
---     slug  VARCHAR(100) UNIQUE NOT NULL
--- );
-
--- CREATE TABLE review_tags (
---     review_id INT UNSIGNED NOT NULL,
---     tag_id    INT UNSIGNED NOT NULL,
---     PRIMARY KEY (review_id, tag_id),
---     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE,
---     FOREIGN KEY (tag_id)    REFERENCES tags(id)    ON DELETE CASCADE
--- );
