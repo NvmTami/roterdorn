@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Review, ReviewService } from '../../core/services/review.service';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
@@ -29,7 +30,7 @@ export class ReviewListComponent {
   editorialReviews = computed(() => this.reviews().slice(1, 5));
 
   constructor() {
-    this.reviewService.getReviews().subscribe({
+    this.reviewService.getReviews().pipe(takeUntilDestroyed()).subscribe({
       next: (reviews) => { if (reviews.length > 0) this.reviews.set(reviews); },
       error: () => { /* Fallback-Daten bleiben */ },
     });

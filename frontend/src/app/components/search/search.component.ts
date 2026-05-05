@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 import { ReviewService, Review } from '../../core/services/review.service';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { ReviewCardComponent } from '../../shared/review-card/review-card.component';
@@ -89,16 +91,20 @@ export class SearchComponent {
   lastQuery = signal('');
 
   constructor() {
-    this.route.queryParamMap.subscribe((params) => {
-      const q = params.get('q') ?? '';
-      this.query = q;
-      if (q.length >= 2) {
-        this.lastQuery.set(q);
-        this.reviewService.search(q).subscribe({
-          next: (r) => { this.results.set(r); this.searched.set(true); this.error.set(false); },
-          error: () => this.error.set(true),
-        });
-      }
+    this.route.queryParamMap.pipe(
+      takeUntilDestroyed(),
+      switchMap((params) => {
+        const q = params.get('q') ?? '';
+        this.query = q;
+        if (q.length >= 2) {
+          this.lastQuery.set(q);
+          return this.reviewService.search(q);
+        }
+        return [];
+      }),
+    ).subscribe({
+      next: (r) => { this.results.set(r); this.searched.set(true); this.error.set(false); },
+      error: () => this.error.set(true),
     });
   }
 

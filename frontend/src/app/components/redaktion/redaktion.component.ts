@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthorService, Author } from '../../core/services/author.service';
 import { HeaderComponent } from '../../layout/header/header.component';
 
@@ -75,7 +76,7 @@ export class RedaktionComponent {
   error = signal(false);
 
   constructor() {
-    this.authorService.getAuthors().subscribe({
+    this.authorService.getAuthors().pipe(takeUntilDestroyed()).subscribe({
       next: (authors) => this.authors.set(authors),
       error: () => this.error.set(true),
     });

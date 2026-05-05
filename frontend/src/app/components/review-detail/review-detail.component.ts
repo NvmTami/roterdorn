@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReviewService, ReviewDetail } from '../../core/services/review.service';
 import { HeaderComponent } from '../../layout/header/header.component';
@@ -36,7 +35,7 @@ import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
             @if (r.cover_url) {
               <img class="detail-cover" [src]="r.cover_url" [alt]="'Cover von ' + r.title" />
             }
-            <div class="detail-text" [innerHTML]="safeContent()"></div>
+            <div class="detail-text" [innerHTML]="r.content"></div>
           </div>
 
           @if (r.details) {
@@ -94,10 +93,8 @@ import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 export class ReviewDetailComponent {
   private route = inject(ActivatedRoute);
   private reviewService = inject(ReviewService);
-  private sanitizer = inject(DomSanitizer);
 
   review = signal<ReviewDetail | null>(null);
-  safeContent = signal<SafeHtml>('');
   loading = signal(true);
   notFound = signal(false);
 
@@ -111,11 +108,7 @@ export class ReviewDetailComponent {
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.reviewService.getReviewById(id).pipe(takeUntilDestroyed()).subscribe({
-      next: (r) => {
-        this.review.set(r);
-        this.safeContent.set(this.sanitizer.bypassSecurityTrustHtml(r.content));
-        this.loading.set(false);
-      },
+      next: (r) => { this.review.set(r); this.loading.set(false); },
       error: (e) => { this.notFound.set(e.status === 404); this.loading.set(false); },
     });
   }
