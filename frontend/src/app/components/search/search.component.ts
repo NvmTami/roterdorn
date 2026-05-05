@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { ReviewService, Review } from '../../core/services/review.service';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { ReviewCardComponent } from '../../shared/review-card/review-card.component';
@@ -100,7 +100,7 @@ export class SearchComponent {
           this.lastQuery.set(q);
           return this.reviewService.search(q);
         }
-        return [];
+        return of([]);
       }),
     ).subscribe({
       next: (r) => { this.results.set(r); this.searched.set(true); this.error.set(false); },

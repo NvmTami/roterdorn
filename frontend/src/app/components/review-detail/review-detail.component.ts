@@ -18,6 +18,10 @@ import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
         <main class="detail-content">
           <p class="state-msg">Rezension nicht gefunden.</p>
         </main>
+      } @else if (error()) {
+        <main class="detail-content">
+          <p class="state-msg">Fehler beim Laden der Rezension.</p>
+        </main>
       } @else if (loading()) {
         <main class="detail-content">
           <p class="state-msg">Lädt…</p>
@@ -97,6 +101,7 @@ export class ReviewDetailComponent {
   review = signal<ReviewDetail | null>(null);
   loading = signal(true);
   notFound = signal(false);
+  error = signal(false);
 
   private readonly FIELD_LABELS: Record<string, Record<string, string>> = {
     buch:  { isbn: 'ISBN', page_count: 'Seiten', publisher: 'Verlag', release_date: 'Erschienen', language: 'Sprache', format: 'Format', price: 'Preis' },
@@ -109,7 +114,11 @@ export class ReviewDetailComponent {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.reviewService.getReviewById(id).pipe(takeUntilDestroyed()).subscribe({
       next: (r) => { this.review.set(r); this.loading.set(false); },
-      error: (e) => { this.notFound.set(e.status === 404); this.loading.set(false); },
+      error: (e) => {
+        this.notFound.set(e.status === 404);
+        this.error.set(e.status !== 404);
+        this.loading.set(false);
+      },
     });
   }
 

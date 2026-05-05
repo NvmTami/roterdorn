@@ -171,10 +171,13 @@ def add_review():
     try:
         db  = get_db()
         cur = db.cursor()
+        cur.execute("SELECT id FROM authors ORDER BY id LIMIT 1")
+        author_row = cur.fetchone()
+        author_id = author_row[0] if author_row else 1
         cur.execute("""
-            INSERT INTO reviews (title, media_type, rating, excerpt, content, published_at)
-            VALUES (%s, %s, %s, %s, %s, NOW())
-        """, (data["title"], data["category"], rating, data["comment"], data["comment"]))
+            INSERT INTO reviews (author_id, title, media_type, rating, excerpt, content, published_at)
+            VALUES (%s, %s, %s, %s, %s, %s, NOW())
+        """, (author_id, data["title"], data["category"], rating, data["comment"], data["comment"]))
         db.commit()
         return jsonify({"message": "Rezension hinzugefügt", "id": cur.lastrowid}), 201
     except Error as e:
