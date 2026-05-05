@@ -19,7 +19,7 @@ VALID_MEDIA_TYPES = set(DETAIL_TABLES.keys())
 @reviews_bp.get("/reviews")
 def get_reviews():
     media_type = request.args.get("type")
-    limit      = int(request.args.get("limit", 20))
+    limit      = min(int(request.args.get("limit", 20)), 100)
     page       = int(request.args.get("page", 1))
     offset     = (page - 1) * limit
 

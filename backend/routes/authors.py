@@ -21,7 +21,8 @@ def get_authors():
             if item.get("created_at"):
                 item["created_at"] = str(item["created_at"])
         return jsonify({"authors": result})
-    except Error:
+    except Error as e:
+        print(f"DB-Fehler in get_authors: {e}")
         return jsonify({"error": "Datenbankfehler"}), 500
     finally:
         if db and db.is_connected():
