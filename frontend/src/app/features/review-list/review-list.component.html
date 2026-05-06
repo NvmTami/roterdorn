@@ -1,9 +1,21 @@
 <div class="homepage-shell">
   <app-header />
 
+  @if (error()) {
+    <p class="state-message state-message--error">Keine Verbindung zum Server. Bitte Backend starten.</p>
+  }
+
+  @if (loading()) {
+    <p class="state-message">Lädt…</p>
+  }
+
   @if (featuredReview(); as featured) {
     <section class="hero" aria-label="Neueste Rezension">
-      <div class="hero__cover" aria-hidden="true"><span>Cover</span></div>
+      @if (featured.cover_url) {
+        <img class="hero__cover" [src]="featured.cover_url" [alt]="featured.title" />
+      } @else {
+        <div class="hero__cover hero__cover--placeholder" aria-hidden="true"></div>
+      }
       <div class="hero__content">
         <span class="badge">Rezension · {{ featured.media_type | mediaType }}</span>
         <h1 class="hero__title">{{ featured.title }}</h1>
@@ -35,7 +47,7 @@
           (click)="setFilter(tab.value)"
           [attr.aria-pressed]="activeFilter() === tab.value"
         >
-          {{ tab.label }} <span class="btn-filter__count">{{ tab.count }}</span>
+          {{ tab.label }}
         </button>
       }
     </div>
@@ -47,9 +59,13 @@
   </div>
 
   <div class="reviews-grid">
-    @for (review of editorialReviews(); track review.title + review.media_type) {
+    @for (review of editorialReviews(); track review.id) {
       <article class="review-card">
-        <div class="review-card__cover" [class]="'review-card__cover--' + review.media_type" aria-hidden="true"></div>
+        @if (review.cover_url) {
+          <img class="review-card__cover" [src]="review.cover_url" [alt]="review.title" />
+        } @else {
+          <div class="review-card__cover review-card__cover--placeholder" aria-hidden="true"></div>
+        }
         <div class="review-card__body">
           <div class="review-card__type">{{ review.media_type | mediaType }}</div>
           <div class="review-card__title">{{ review.title }}</div>

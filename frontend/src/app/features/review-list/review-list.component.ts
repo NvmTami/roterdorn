@@ -10,6 +10,14 @@ interface HomeReview extends Review {
   date: string;
 }
 
+const FILTER_TO_TYPE: Record<string, string | undefined> = {
+  alle:    undefined,
+  buecher: 'buch',
+  filme:   'film',
+  musik:   'musik',
+  spiele:  'spiel',
+};
+
 @Component({
   selector: 'app-review-list',
   standalone: true,
@@ -21,106 +29,50 @@ interface HomeReview extends Review {
 export class ReviewListComponent {
   private readonly reviewService = inject(ReviewService);
 
-  reviews = signal<HomeReview[]>([
-    {
-      id: 0,
-      title: 'Spiel mir das Lied vom Goblin',
-      media_type: 'buch',
-      rating: 5,
-      excerpt:
-        'Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag fur die Fantasyliteratur. Der Meister der Fusnoten hat eine grosse Lucke hinterlassen, die niemand fullen kann.',
-      published_at: '2026-05-02',
-      cover_url: null,
-      author_name: 'Joanna Muller-Lenz',
-      author: 'Joanna Muller-Lenz',
-      date: '02.05.2026',
-    },
-    {
-      id: 0,
-      title: '8 Blickwinkel',
-      media_type: 'film',
-      rating: 4,
-      excerpt: 'Perspektivwechsel mit messerscharfem Timing und einem Finale, das nachhallt.',
-      published_at: '2026-05-01',
-      cover_url: null,
-      author_name: 'Leonardo Beckert',
-      author: 'Leonardo Beckert',
-      date: '01.05.2026',
-    },
-    {
-      id: 0,
-      title: 'Fix8Sed8 Secret Gig',
-      media_type: 'musik',
-      rating: 4,
-      excerpt: 'Ein druckvoller Live-Mitschnitt zwischen Industrial und dunklem Pop.',
-      published_at: '2026-04-29',
-      cover_url: null,
-      author_name: 'Marcus Pohlmann',
-      author: 'Marcus Pohlmann',
-      date: '29.04.2026',
-    },
-    {
-      id: 0,
-      title: 'Shadow Cards',
-      media_type: 'spiel',
-      rating: 4,
-      excerpt: 'Deckbuilding mit eleganter Risiko-Mechanik und viel Atmosphare.',
-      published_at: '2026-04-26',
-      cover_url: null,
-      author_name: 'Marcus Pohlmann',
-      author: 'Marcus Pohlmann',
-      date: '26.04.2026',
-    },
-    {
-      id: 0,
-      title: 'Noch funf Tage',
-      media_type: 'buch',
-      rating: 4,
-      excerpt: 'Ein ruhiger Roman uber Aufbruch, Verlust und letzte Chancen.',
-      published_at: '2026-04-24',
-      cover_url: null,
-      author_name: 'Martin Wagner',
-      author: 'Martin Wagner',
-      date: '24.04.2026',
-    },
-  ]);
+  reviews  = signal<HomeReview[]>([]);
+  loading  = signal(true);
+  error    = signal(false);
 
-  featuredReview = computed(() => this.reviews()[0]);
+  featuredReview  = computed(() => this.reviews()[0] ?? null);
   editorialReviews = computed(() => this.reviews().slice(1, 5));
 
   readonly activeFilter = signal('alle');
 
   readonly filterTabs = [
-    { label: 'Alle',    value: 'alle',    count: 847 },
-    { label: 'Bücher',  value: 'buecher', count: 312 },
-    { label: 'Filme',   value: 'filme',   count: 198 },
-    { label: 'Musik',   value: 'musik',   count: 214 },
-    { label: 'Spiele',  value: 'spiele',  count: 123 },
+    { label: 'Alle',    value: 'alle'    },
+    { label: 'Bücher',  value: 'buecher' },
+    { label: 'Filme',   value: 'filme'   },
+    { label: 'Musik',   value: 'musik'   },
+    { label: 'Spiele',  value: 'spiele'  },
   ];
 
   setFilter(value: string): void {
     this.activeFilter.set(value);
+    this.loadReviews(FILTER_TO_TYPE[value]);
   }
 
   constructor() {
-    this.reviewService.getReviews().subscribe({
+    this.loadReviews(undefined);
+  }
+
+  private loadReviews(mediaType: string | undefined): void {
+    this.loading.set(true);
+    this.error.set(false);
+    this.reviewService.getReviews(mediaType).subscribe({
       next: (reviews) => {
-        if (reviews.length === 0) {
-          return;
-        }
-
-        const mappedReviews: HomeReview[] = reviews.map((review) => ({
-          ...review,
-          author: review.author_name,
-          date: new Date(review.published_at).toLocaleDateString('de-DE'),
-        }));
-
-        this.reviews.set(mappedReviews);
+        this.reviews.set(
+          reviews.map((r) => ({
+            ...r,
+            author: r.author_name,
+            date: new Date(r.published_at).toLocaleDateString('de-DE'),
+          }))
+        );
+        this.loading.set(false);
       },
       error: () => {
-        // Keep seeded content when backend is not reachable.
+        this.error.set(true);
+        this.loading.set(false);
       },
     });
   }
-
 }

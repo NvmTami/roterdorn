@@ -11,84 +11,107 @@
         type="search"
         class="search-input"
         [value]="searchQuery()"
+        (input)="onInput($event)"
         placeholder="Suchen…"
         aria-label="Suchbegriff"
       />
     </div>
     <div class="search-summary">
-      <p class="search-summary__text">
-        <span class="search-summary__count">12 Treffer</span>
-        für „{{ searchQuery() }}"
-      </p>
-      <span class="search-summary__time">in 47 ms</span>
+      @if (searchQuery().length >= 2 && !loading()) {
+        <p class="search-summary__text">
+          <span class="search-summary__count">{{ filteredResults().length }} Treffer</span>
+          für „{{ searchQuery() }}"
+        </p>
+      }
     </div>
   </div>
 
+  @if (error()) {
+    <p class="state-message state-message--error">Keine Verbindung zum Server.</p>
+  }
+
+  @if (loading()) {
+    <p class="state-message">Suche läuft…</p>
+  }
+
   <div class="search-controls">
     <div class="filter-tabs" role="group" aria-label="Kategoriefilter">
-      @for (filter of filters; track filter.value) {
+      @for (filter of [
+        { label: 'Alle',   value: 'alle'    },
+        { label: 'Bücher', value: 'buecher' },
+        { label: 'Filme',  value: 'filme'   },
+        { label: 'Musik',  value: 'musik'   },
+        { label: 'Spiele', value: 'spiele'  }
+      ]; track filter.value) {
         <button
           class="btn-filter"
           [class.btn-filter--active]="activeFilter() === filter.value"
-          [class.btn-filter--empty]="filter.count === 0"
           (click)="setFilter(filter.value)"
           [attr.aria-pressed]="activeFilter() === filter.value"
         >
           {{ filter.label }}
-          <span class="btn-filter__count">{{ filter.count }}</span>
         </button>
       }
     </div>
-    <select class="sort-select" aria-label="Sortierung">
-      <option>Relevanz</option>
-      <option>Neueste</option>
-      <option>Beste Bewertung</option>
-    </select>
   </div>
 
-  <div class="top-result-wrap">
-    <article class="top-result">
-      <div class="top-result__cover"></div>
-      <div class="top-result__body">
-        <div class="top-result__badges">
-          <span class="badge-type">Buch</span>
-          <span class="badge-top">Top-Treffer</span>
-        </div>
-        <h2 class="top-result__title">Spiel mir das Lied vom Goblin</h2>
-        <p class="top-result__meta">Joanna Müller-Lenz · 02.05.2026</p>
-        <p class="top-result__excerpt">
-          Der Tag, an dem Terry
-          <mark>Pratchett</mark>
-          starb, war ein schwarzer Tag für die Fantasyliteratur. Eine eigenständige Hommage…
-        </p>
-        <div class="top-result__rating">
-          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
-            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
-          </svg>
-          <span>8/10</span>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <div class="results-grid">
-    @for (result of results; track result.title) {
-      <article class="result-card">
-        <div class="result-card__cover" [style.background]="result.coverColor"></div>
-        <div class="result-card__body">
-          <div class="result-card__type">{{ result.media_type | mediaType }}</div>
-          <div class="result-card__title">{{ result.title }}</div>
-          <div class="result-card__author">{{ result.author }}</div>
-          <div class="card-rating">
+  @if (topResult(); as top) {
+    <div class="top-result-wrap">
+      <article class="top-result">
+        @if (top.cover_url) {
+          <img class="top-result__cover" [src]="top.cover_url" [alt]="top.title" />
+        } @else {
+          <div class="top-result__cover top-result__cover--placeholder"></div>
+        }
+        <div class="top-result__body">
+          <div class="top-result__badges">
+            <span class="badge-type">{{ top.media_type | mediaType }}</span>
+            <span class="badge-top">Top-Treffer</span>
+          </div>
+          <h2 class="top-result__title">
+            <a [routerLink]="['/review', top.id]">{{ top.title }}</a>
+          </h2>
+          <p class="top-result__meta">{{ top.author_name }} · {{ top.published_at | date:'dd.MM.yyyy' }}</p>
+          <p class="top-result__excerpt">{{ top.excerpt }}</p>
+          <div class="top-result__rating">
             <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
               <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
             </svg>
-            <span class="card-rating__text">{{ result.rating }}/10</span>
+            <span>{{ +top.rating * 2 }}/10</span>
           </div>
         </div>
       </article>
-    }
-  </div>
+    </div>
+  }
 
-  <div class="load-more" aria-label="Weitere Ergebnisse laden">Mehr laden →</div>
+  @if (restResults().length > 0) {
+    <div class="results-grid">
+      @for (result of restResults(); track result.id) {
+        <article class="result-card">
+          @if (result.cover_url) {
+            <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
+          } @else {
+            <div class="result-card__cover result-card__cover--placeholder"></div>
+          }
+          <div class="result-card__body">
+            <div class="result-card__type">{{ result.media_type | mediaType }}</div>
+            <div class="result-card__title">
+              <a [routerLink]="['/review', result.id]">{{ result.title }}</a>
+            </div>
+            <div class="result-card__author">{{ result.author_name }}</div>
+            <div class="card-rating">
+              <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
+                <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
+              </svg>
+              <span class="card-rating__text">{{ +result.rating * 2 }}/10</span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  @if (!loading() && !error() && searchQuery().length >= 2 && filteredResults().length === 0) {
+    <p class="state-message">Keine Ergebnisse für „{{ searchQuery() }}".</p>
+  }
 </div>

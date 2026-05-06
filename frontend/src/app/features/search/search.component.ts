@@ -1,49 +1,71 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
-
-interface SearchResult {
-  media_type: string;
-  title: string;
-  author: string;
-  rating: number;
-  coverColor: string;
-}
-
-interface FilterTab {
-  label: string;
-  value: string;
-  count: number;
-}
+import { Review, ReviewService } from '../../core/services/review.service';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [HeaderComponent, MediaTypePipe],
+  imports: [CommonModule, RouterLink, HeaderComponent, MediaTypePipe],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent {
-  readonly searchQuery = signal('pratchett');
-  readonly activeFilter = signal('alle');
+  private readonly route   = inject(ActivatedRoute);
+  private readonly router  = inject(Router);
+  private readonly service = inject(ReviewService);
 
-  readonly filters: FilterTab[] = [
-    { label: 'Alle',    value: 'alle',    count: 12 },
-    { label: 'Bücher',  value: 'buecher', count: 8  },
-    { label: 'Filme',   value: 'filme',   count: 2  },
-    { label: 'Musik',   value: 'musik',   count: 0  },
-    { label: 'Spiele',  value: 'spiele',  count: 2  },
-  ];
+  searchQuery   = signal('');
+  results       = signal<Review[]>([]);
+  loading       = signal(false);
+  error         = signal(false);
+  activeFilter  = signal('alle');
 
-  readonly results: SearchResult[] = [
-    { media_type: 'buch',  title: 'Going Postal',               author: 'Terry Pratchett',      rating: 10, coverColor: '#1a2845' },
-    { media_type: 'film',  title: 'Hogfather',                  author: 'nach Terry Pratchett', rating: 7,  coverColor: '#2a1838' },
-    { media_type: 'buch',  title: 'Mort',                       author: 'Terry Pratchett',      rating: 9,  coverColor: '#0e2a20' },
-    { media_type: 'spiel', title: 'Discworld: Ankh-Morpork',    author: 'Martin Wallace',       rating: 8,  coverColor: '#3a1c0e' },
-  ];
+  constructor() {
+    this.route.queryParamMap.subscribe((params) => {
+      const q = params.get('q') ?? '';
+      this.searchQuery.set(q);
+      if (q.length >= 2) {
+        this.doSearch(q);
+      } else {
+        this.results.set([]);
+      }
+    });
+  }
+
+  onInput(event: Event): void {
+    const q = (event.target as HTMLInputElement).value.trim();
+    this.router.navigate([], {
+      queryParams: { q: q || null },
+      queryParamsHandling: 'merge',
+    });
+  }
 
   setFilter(value: string): void {
     this.activeFilter.set(value);
+  }
+
+  filteredResults = () => {
+    const f = this.activeFilter();
+    const filterToType: Record<string, string> = {
+      buecher: 'buch', filme: 'film', musik: 'musik', spiele: 'spiel',
+    };
+    if (f === 'alle') return this.results();
+    return this.results().filter((r) => r.media_type === filterToType[f]);
+  };
+
+  topResult = () => this.filteredResults()[0] ?? null;
+  restResults = () => this.filteredResults().slice(1);
+
+  private doSearch(q: string): void {
+    this.loading.set(true);
+    this.error.set(false);
+    this.service.search(q).subscribe({
+      next: (data) => { this.results.set(data); this.loading.set(false); },
+      error: () => { this.error.set(true); this.loading.set(false); },
+    });
   }
 }

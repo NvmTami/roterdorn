@@ -1,159 +1,98 @@
 <div class="detail-shell">
   <app-header />
 
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a routerLink="/buecher" class="breadcrumb__link">Bücher</a>
-    <span class="breadcrumb__sep" aria-hidden="true">/</span>
-    <span class="breadcrumb__current">Spiel mir das Lied vom Goblin</span>
-  </nav>
+  @if (error()) {
+    <p class="state-message state-message--error">Review konnte nicht geladen werden.</p>
+  }
 
-  <div class="detail-layout">
-    <aside>
-      <div class="cover-placeholder" aria-hidden="true">Cover</div>
+  @if (loading()) {
+    <p class="state-message">Lädt…</p>
+  }
 
-      <div class="meta-panel">
-        <div class="meta-panel__label">Werk</div>
-        <dl class="meta-list">
-          <div class="meta-row">
-            <dt>Autor</dt>
-            <dd>Joanna Müller-Lenz</dd>
+  @if (review(); as r) {
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/" class="breadcrumb__link">{{ r.media_type | mediaType }}</a>
+      <span class="breadcrumb__sep" aria-hidden="true">/</span>
+      <span class="breadcrumb__current">{{ r.title }}</span>
+    </nav>
+
+    <div class="detail-layout">
+      <aside>
+        @if (r.cover_url) {
+          <img class="cover-image" [src]="r.cover_url" [alt]="r.title" />
+        } @else {
+          <div class="cover-placeholder" aria-hidden="true"></div>
+        }
+
+        @if (detailEntries().length > 0) {
+          <div class="meta-panel">
+            <div class="meta-panel__label">Werk</div>
+            <dl class="meta-list">
+              @for (entry of detailEntries(); track entry.label) {
+                <div class="meta-row">
+                  <dt>{{ entry.label }}</dt>
+                  <dd>{{ entry.value }}</dd>
+                </div>
+              }
+            </dl>
           </div>
-          <div class="meta-row">
-            <dt>Verlag</dt>
-            <dd>Feder &amp; Schwert</dd>
+        }
+      </aside>
+
+      <article>
+        <span class="badge">Rezension · {{ r.media_type | mediaType }}</span>
+
+        <h1 class="review-title">{{ r.title }}</h1>
+
+        <p class="review-byline">
+          Rezensiert von
+          <span class="review-byline__author">{{ r.author_name }}</span>
+          · {{ r.published_at | date:'dd.MM.yyyy' }}
+        </p>
+
+        <div class="rating-panel">
+          <div class="rating-panel__head">
+            <span class="rating-panel__label">Bewertung</span>
+            <span class="rating-panel__value">
+              {{ displayRating() }}<span class="rating-panel__denom">/{{ maxRating }}</span>
+            </span>
           </div>
-          <div class="meta-row">
-            <dt>Erschienen</dt>
-            <dd>März 2026</dd>
-          </div>
-          <div class="meta-row">
-            <dt>Seiten</dt>
-            <dd>412</dd>
-          </div>
-          <div class="meta-row">
-            <dt>Sprache</dt>
-            <dd>Deutsch</dd>
-          </div>
-          <div class="meta-row">
-            <dt>ISBN</dt>
-            <dd class="isbn">978-3-86762-441-2</dd>
-          </div>
-        </dl>
-      </div>
 
-      <div class="tag-list" aria-label="Tags">
-        <span class="tag">Fantasy</span>
-        <span class="tag">Satire</span>
-        <span class="tag">Pratchett-Hommage</span>
-      </div>
-    </aside>
-
-    <article>
-      <span class="badge">Rezension · Buch</span>
-
-      <h1 class="review-title">Spiel mir das Lied vom Goblin</h1>
-
-      <p class="review-byline">
-        Rezensiert von
-        <span class="review-byline__author">Marcus Pohlmann</span>
-        · 02.05.2026 · Lesezeit ca. 6 Min.
-      </p>
-
-      <div class="rating-panel">
-        <div class="rating-panel__head">
-          <span class="rating-panel__label">Bewertung</span>
-          <span class="rating-panel__value">
-            {{ rating() }}<span class="rating-panel__denom">/{{ maxRating }}</span>
-          </span>
-        </div>
-
-        <div
-          class="rating-bar"
-          aria-hidden="true"
-        >
-          <svg width="100%" height="32" viewBox="0 0 400 32" preserveAspectRatio="none">
-            <line x1="6" y1="22" x2="394" y2="22" stroke="#3a2418" stroke-width="1.5" />
-            @for (marker of ratingMarkers; track marker) {
-              <g [attr.transform]="'translate(' + (20 + (marker - 1) * 40) + ',22)'">
-                @if (marker <= rating()) {
-                  <polygon points="0,0 -7,-14 7,-14" fill="#e63946" />
-                  <circle cx="0" cy="0" r="2" fill="#e63946" />
-                } @else {
-                  <polygon
-                    points="0,0 -7,-14 7,-14"
-                    fill="none"
-                    stroke="#3a2418"
-                    stroke-width="1.5"
-                  />
-                  <circle cx="0" cy="0" r="2" fill="#3a2418" />
-                }
-              </g>
-            }
-          </svg>
-          <div class="rating-bar__scale">
-            <span>1</span><span>5</span><span>10</span>
+          <div class="rating-bar" aria-hidden="true">
+            <svg width="100%" height="32" viewBox="0 0 400 32" preserveAspectRatio="none">
+              <line x1="6" y1="22" x2="394" y2="22" stroke="#3a2418" stroke-width="1.5" />
+              @for (marker of ratingMarkers; track marker) {
+                <g [attr.transform]="'translate(' + (20 + (marker - 1) * 40) + ',22)'">
+                  @if (marker <= displayRating()) {
+                    <polygon points="0,0 -7,-14 7,-14" fill="#e63946" />
+                    <circle cx="0" cy="0" r="2" fill="#e63946" />
+                  } @else {
+                    <polygon
+                      points="0,0 -7,-14 7,-14"
+                      fill="none"
+                      stroke="#3a2418"
+                      stroke-width="1.5"
+                    />
+                    <circle cx="0" cy="0" r="2" fill="#3a2418" />
+                  }
+                </g>
+              }
+            </svg>
+            <div class="rating-bar__scale">
+              <span>1</span><span>5</span><span>10</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <p class="review-excerpt">
-        Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag für die Fantasyliteratur.
-        Der Meister der Fußnoten hat eine große Lücke hinterlassen, die niemand füllen kann.
-      </p>
+        <p class="review-excerpt">{{ r.excerpt }}</p>
 
-      <p class="review-body">
-        Joanna Müller-Lenz versucht es trotzdem — und das mit erstaunlichem Erfolg. Ihr Debüt
-        „Spiel mir das Lied vom Goblin" ist keine billige Pratchett-Kopie, sondern eine
-        eigenständige Stimme, die sich vor dem Vergleich nicht zu verstecken braucht.
-      </p>
+        <div class="review-body" [innerHTML]="safeContent()"></div>
 
-      <p class="review-body">
-        Die Geschichte um den notorisch arbeitsscheuen Goblin Grumpfn, der wider Willen zum
-        Helden eines Königreichs wird, lebt von ihrem präzisen Humor und ausgesprochen
-        liebenswerten Figuren. Müller-Lenz schafft es, die typisch satirische Distanz zu wahren,
-        ohne ihre Charaktere der Lächerlichkeit preiszugeben…
-      </p>
-
-      <div class="share-row">
-        <span class="share-row__label">Teilen:</span>
-        <a href="#" class="share-row__link">Facebook</a>
-        <a href="#" class="share-row__link">Instagram</a>
-        <a href="#" class="share-row__link">Link kopieren</a>
-      </div>
-    </article>
-  </div>
-
-  <section class="related-section" aria-label="Ähnliche Rezensionen">
-    <div class="section-heading">Ähnliche Rezensionen</div>
-    <div class="related-grid">
-      <div class="related-card">
-        <div class="related-card__cover related-card__cover--buch-warm"></div>
-        <div class="related-card__body">
-          <div class="related-card__type">Buch</div>
-          <div class="related-card__title">Noch fünf Tage</div>
+        <div class="share-row">
+          <span class="share-row__label">Teilen:</span>
+          <a href="#" class="share-row__link">Link kopieren</a>
         </div>
-      </div>
-      <div class="related-card">
-        <div class="related-card__cover related-card__cover--buch-teal"></div>
-        <div class="related-card__body">
-          <div class="related-card__type">Buch</div>
-          <div class="related-card__title">Wolsung</div>
-        </div>
-      </div>
-      <div class="related-card">
-        <div class="related-card__cover related-card__cover--musik"></div>
-        <div class="related-card__body">
-          <div class="related-card__type">Buch</div>
-          <div class="related-card__title">Transmetropolitan</div>
-        </div>
-      </div>
-      <div class="related-card">
-        <div class="related-card__cover related-card__cover--film"></div>
-        <div class="related-card__body">
-          <div class="related-card__type">Buch</div>
-          <div class="related-card__title">Da Luigi</div>
-        </div>
-      </div>
+      </article>
     </div>
-  </section>
+  }
 </div>
