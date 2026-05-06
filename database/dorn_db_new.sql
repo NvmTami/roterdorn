@@ -211,6 +211,39 @@ INSERT INTO game_details (review_id, developer, publisher, release_date, platfor
 (26, NULL,             'Kosmos',                   NULL, NULL, 'Kartenspiel',             2, 4),
 (27, NULL,             'moses. Verlag',            NULL, NULL, 'Fragespiel',              2, 6);
 
+-- ============================================================
+-- Ratings (basierend auf Rezensions-Tenor, Skala 1–5)
+-- ============================================================
+UPDATE reviews SET rating = CASE id
+  WHEN  1 THEN 3.5  -- Frogbelly And Symphony
+  WHEN  2 THEN 3.5  -- Folk's Sake
+  WHEN  3 THEN 4.0  -- The Birthday Massacre
+  WHEN  4 THEN 4.0  -- The Eden House
+  WHEN  5 THEN 3.0  -- Liz Hanley
+  WHEN  6 THEN 3.5  -- Sally Dige
+  WHEN  7 THEN 4.0  -- Der Marsianer
+  WHEN  8 THEN 4.5  -- Star Wars
+  WHEN  9 THEN 3.0  -- Seventh Son
+  WHEN 10 THEN 3.5  -- Stitched
+  WHEN 11 THEN 3.0  -- Soylent Green
+  WHEN 12 THEN 4.0  -- Cthulhu Design
+  WHEN 13 THEN 4.0  -- MADs Große Meister
+  WHEN 14 THEN 3.0  -- Crossed 4
+  WHEN 15 THEN 3.5  -- Lexikon des bürokratischen Wahnsinns
+  WHEN 16 THEN 4.0  -- Smash Up
+  WHEN 17 THEN 4.0  -- Smash Up Cthulhu
+  WHEN 18 THEN 3.5  -- Ghooost!
+  WHEN 19 THEN 4.0  -- Zombicide Toxic City Mall
+  WHEN 20 THEN 3.5  -- Feiertage der Furcht
+  WHEN 21 THEN 4.0  -- Munchkin Panic
+  WHEN 22 THEN 4.5  -- Deutschland - Blutige Kriege
+  WHEN 23 THEN 3.5  -- In Her Majesty's Name
+  WHEN 24 THEN 4.0  -- Dunwich
+  WHEN 25 THEN 3.5  -- Da Luigi
+  WHEN 26 THEN 3.5  -- Von Drachen und Schafen
+  WHEN 27 THEN 3.0  -- Sprengstoff
+END WHERE id BETWEEN 1 AND 27;
+
 -- Damit neue Einträge über die App keine ID-Konflikte verursachen
 ALTER TABLE authors AUTO_INCREMENT = 10;
 ALTER TABLE reviews AUTO_INCREMENT = 30;
