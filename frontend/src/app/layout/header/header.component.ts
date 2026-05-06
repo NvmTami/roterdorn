@@ -1,52 +1,73 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BrandLogoComponent } from '../../shared/branding/brand-logo.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, BrandLogoComponent],
+  imports: [RouterLink],
   template: `
     <header class="site-header">
-      <a routerLink="/" class="brand-link" aria-label="Zur Startseite">
-        <app-brand-logo variant="lockup" [height]="20" />
+      <a routerLink="/" class="brand" aria-label="Zur Startseite">
+        <span>roter</span>
+        <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+          <polygon points="0,0 20,7 0,14" fill="#e63946" />
+        </svg>
+        <span>dorn</span>
       </a>
-      <nav class="primary-nav">
-        <a routerLink="/buecher">Bücher</a>
-        <a routerLink="/filme">Filme</a>
-        <a routerLink="/musik">Musik</a>
-        <a routerLink="/spiele">Spiele</a>
-        <a routerLink="/redaktion">Redaktion</a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="primary-nav">
+          <li><a routerLink="/buecher" routerLinkActive="primary-nav__item--active">Bücher</a></li>
+          <li><a routerLink="/filme" routerLinkActive="primary-nav__item--active">Filme</a></li>
+          <li><a routerLink="/musik" routerLinkActive="primary-nav__item--active">Musik</a></li>
+          <li><a routerLink="/spiele" routerLinkActive="primary-nav__item--active">Spiele</a></li>
+          <li class="primary-nav__item--dim"><a routerLink="/redaktion">Redaktion</a></li>
+        </ul>
       </nav>
     </header>
   `,
-  styles: [
-    `
-      .site-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 1.5rem;
-        border-bottom: 0.5px solid #1f1f1f;
-      }
-      .brand-link {
-        color: inherit;
-        text-decoration: none;
-      }
-      .primary-nav {
-        display: flex;
-        gap: 1.5rem;
-        font-size: 0.8rem;
-        color: var(--brand-text-muted);
-      }
-      .primary-nav a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .primary-nav a:hover {
-        color: var(--brand-accent);
-      }
-    `,
-  ],
+  styles: [`
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .primary-nav {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--text-faint);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .primary-nav li a {
+      color: var(--text-faint);
+      text-decoration: none;
+    }
+
+    .primary-nav li a:hover,
+    .primary-nav li a.primary-nav__item--active {
+      color: var(--text-primary);
+    }
+
+    .primary-nav__item--dim a {
+      color: var(--text-dim) !important;
+    }
+  `],
 })
 export class HeaderComponent {}

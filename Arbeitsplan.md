@@ -72,41 +72,91 @@ MVP brutal definiert: genau 3 Seiten
 
 ---
 
-*Aktualisierter Plan bis zur Präsentation am 21.05.*
+*Aktualisierter Plan bis zur Präsentation am 21.05. — Stand: 05.05.2026*
 
-### Schritt 3 — Wireframes auf Papier (1 Stunde, ganzes Team)
-- Skizzen für alle 3 Seiten. Stift und Papier.
-- Ergebnis: ein Foto im docs/-Ordner, das alle vier sehen.
+---
 
-### Schritt 4 — API-Vertrag festlegen (1 Stunde)
-- Ein docs/api.md mit den Endpoints und exakten JSON-Responses. Sobald das steht, können Frontend und Backend parallel arbeiten ohne sich zu blockieren.
+### ✅ Schritt 3 — Wireframes / Mockups
+- **Erledigt:** Statt Papier-Wireframes wurden vollständige HTML/CSS-Mockups für alle 3 Seiten gebaut.
+- Dateien: `mockups/roterdorn_homepage_mockup.html`, `roterdorn_review_detail_book_mockup.html`, `roterdorn_search_mockup.html`
+- Design-Sprache festgelegt: Schwarz/Rot/Weiß, CSS Custom Properties, Card-Grid, Filter-Tabs.
 
-### Schritt 5 — Git-Workflow + Setup-Doku (30 Min)
-- Branch-Strategie festlegen,
-- README.md für Backend, Frontend und Database schreiben. Damit jeder im Team das Projekt von Null aufsetzen kann.
+---
 
-### Schritt 6 — Backend gegen die DB testen (2–3 Stunden, 1 Person)
-- Existierender Flask-Code, neue DB. Endpoints durchprobieren mit curl oder Postman. Bugs fixen. - Ergebnis: ein laufendes Backend das auf realen Daten antwortet.
+### ✅ Schritt 4 — API-Vertrag
+- **Erledigt:** Backend-Endpoints sind implementiert und der Angular `ReviewService` nutzt sie bereits.
+- Implementierte Endpoints:
+  - `GET /api/reviews?type=&limit=` → `{ data: Review[], count: number }`
+  - `GET /api/reviews/<id>` → Review-Objekt inkl. typ-spezifischer Details
+  - `POST /api/reviews` → `{ message, id }`
+- **Noch offen:** `docs/api.md` mit exakter Dokumentation der Request/Response-Shapes schreiben (für die Projektdokumentation wichtig).
 
-### Schritt 7 — Frontend-Grundgerüst (1 Tag, 2 Personen)
-- Routing aufsetzen, globales Styling (Schwarz/Weiß/Rot), Header-Komponente, Shared-Card-Komponente. Noch keine echten Daten.
+---
 
-### Schritt 8 — Frontend an Backend anschließen (1 Tag, 2 Personen)
-- HTTP-Service in Angular, erste Komponente die echte Reviews lädt. Ab hier wird es konkret.
+### 🔄 Schritt 5 — Git-Workflow + Setup-Doku
+- **Teilweise erledigt:** Git läuft, `README.md` im Root vorhanden, Commits werden nach Conventional-Commit-Schema gemacht.
+- **Noch offen:**
+  - `docs/SETUP.md` erstellen (lokale Dev-Umgebung von Null aufsetzen: MySQL, Python venv, `ng serve`)
+  - Teamnamen im Root-README eintragen (aktuell noch `[Name1]`–`[Name4]`)
 
-### Schritt 9 — Die drei Seiten ausbauen (3–4 Tage, ganzes Team)
-- Startseite mit Filter
-- Detailseite mit [innerHTML]
-- Suche
-- Parallel arbeiten möglich.
+---
 
-### Schritt 10 — Polishing (2 Tage)
-- Responsive auf Smartphone testen, Loading-States, Error-Handling, leere Zustände ("Keine Ergebnisse"), Logo einbinden, Footer.
+### ⏳ Schritt 6 — Backend gegen die DB testen (1–2 Stunden, 1 Person)
+- Flask-Code ist vorhanden (`app.py`, `routes/reviews.py`, `db.py`).
+- Seed-Daten liegen bereit (`database/seed_data.sql`).
+- **Aufgabe:** MySQL-Instanz lokal aufsetzen, `seed_data.sql` einspielen, alle Endpoints mit curl/Postman testen und Bugs fixen.
+- **Ergebnis:** Ein laufendes Backend, das auf echten Daten antwortet.
 
-### Schritt 11 — Dokumentation + Präsentation (2 Tage)
-- Projekt-Doku nach der Vorlage _Vorlage_Projektdokumentation_ITBerufe.pdf
-- Slides für die Präsentation
-- Demo-Skript: was klickt ihr live, in welcher Reihenfolge
+---
 
-### Schritt 12 — Generalprobe (1 Tag, ganzes Team)
-- Komplette Präsentation einmal durchlaufen. Bugs aufschreiben, am Tag danach fixen. Kein neues Feature mehr ab hier.
+### ✅ Schritt 7 — Frontend-Grundgerüst
+- **Erledigt:** Angular-Projekt vollständig aufgesetzt.
+  - Routing: `/` (ReviewList), `/review/:id` (ReviewDetail), `/search` (Search), `/add` (AddReview)
+  - Globales Styling mit CSS Custom Properties (`--accent`, `--bg-base`, `--surface` etc.)
+  - Header-Komponente mit SVG-Logo und Navigation
+  - `ReviewService` mit `HttpClient` für alle API-Calls vorbereitet
+
+---
+
+### ✅ Schritt 9 — Die drei Seiten ausbauen
+- **Erledigt:** Alle 3 Seiten 1:1 aus den Mockups in Angular-Komponenten überführt.
+  - `/` — Startseite mit Hero-Card, Filter-Tabs, 4-spaltigem Review-Grid, Pagination-Hint
+  - `/review/:id` — Detailseite mit 2-Spalten-Layout, Rating-Balken, Metadaten-Liste, Related-Grid
+  - `/search` — Suchseite mit Input, Filter-Pills, Top-Result, Ergebnis-Grid
+- Laufen aktuell noch mit **Hardcode-Mock-Daten** im Component — echte API-Anbindung folgt in Schritt 8.
+
+---
+
+### ⏳ Schritt 8 — Frontend an Backend anschließen (1 Tag, 2 Personen)
+> **Nächster aktiver Schritt** — setzt Schritt 6 (laufendes Backend) voraus.
+
+- `ReviewService.getReviews()` und `getReview(id)` in die Komponenten einbinden (ersetzen die Mock-Arrays).
+- `ReviewListComponent`: Mock-`signal` durch `toSignal(reviewService.getReviews())` ersetzen.
+- `ReviewDetailComponent`: `ActivatedRoute`-Param auslesen, `getReview(id)` aufrufen.
+- `SearchComponent`: Suchparameter aus URL lesen, Backend-Endpoint mit `?q=` anbinden (oder clientseitiges Filter auf den geladenen Daten).
+- Loading- und Error-State in den Templates einfügen.
+
+---
+
+### ⏳ Schritt 10 — Polishing (2 Tage)
+- Responsive auf Smartphone testen (breakpoints bei 680px / 480px prüfen).
+- Loading-Spinner / Skeleton-States.
+- Error-State: "Keine Verbindung zum Server" Meldung.
+- Leere Zustände: "Keine Ergebnisse für diesen Filter".
+- `[innerHTML]` + `DomSanitizer` für den Review-Volltext auf der Detailseite.
+- Footer einbauen.
+
+---
+
+### ⏳ Schritt 11 — Dokumentation + Präsentation (2 Tage, bis 19.05.)
+- Projekt-Doku nach _Vorlage_Projektdokumentation_ITBerufe.pdf_.
+- `docs/api.md` fertigstellen (aus Schritt 4).
+- Slides für die Präsentation.
+- Demo-Skript: welche Seiten in welcher Reihenfolge live gezeigt werden.
+
+---
+
+### ⏳ Schritt 12 — Generalprobe (20.05., ganzes Team)
+- Komplette Präsentation einmal durchlaufen.
+- Bugs aufschreiben, noch am selben Tag fixen.
+- **Kein neues Feature mehr ab hier.**

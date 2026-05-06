@@ -1,0 +1,328 @@
+/* ============================================================
+   Roter Dorn – Review Detail (Buch) Mockup Stylesheet
+   ============================================================ */
+
+:root {
+  --font-sans:   'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif:  Georgia, 'Times New Roman', serif;
+  --font-mono:   'Courier New', Courier, monospace;
+  --border-radius-lg: 10px;
+  --border-radius-md: 6px;
+  --accent: #e63946;
+  --bg-base: #0e0e0e;
+  --text-primary: #f0ece4;
+  --text-soft: #c9c4b8;
+  --text-muted: #8a857c;
+  --text-faint: #b8b3a8;
+  --text-dim: #6b6760;
+  --surface: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-btn: rgba(255, 255, 255, 0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #181818;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px;
+  font-family: var(--font-sans);
+}
+
+/* ── Page shell ─────────────────────────────────────────── */
+
+.mockup {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ── Site header ─────────────────────────────────────────── */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.primary-nav {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  color: var(--text-faint);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.primary-nav__item--active { color: var(--accent); }
+.primary-nav__item--dim    { color: var(--text-dim); }
+
+/* ── Breadcrumb ──────────────────────────────────────────── */
+
+.breadcrumb {
+  padding: 16px 28px;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb__link {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumb__sep {
+  margin: 0 8px;
+  color: #4a463e;
+}
+
+.breadcrumb__current {
+  color: var(--text-soft);
+}
+
+/* ── Two-column layout ───────────────────────────────────── */
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  padding: 8px 28px 28px;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+
+.cover-placeholder {
+  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
+  border-radius: var(--border-radius-md);
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+  font-size: 12px;
+  color: rgba(240, 236, 228, 0.5);
+  margin-bottom: 16px;
+}
+
+.meta-panel {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--border-radius-md);
+  padding: 16px;
+}
+
+.meta-panel__label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.meta-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--border-subtle);
+  font-size: 13px;
+}
+
+.meta-row:last-child { border-bottom: none; }
+
+.meta-row dt { color: var(--text-muted); font-weight: normal; }
+.meta-row dd { color: var(--text-primary); margin: 0; }
+.meta-row dd.isbn { font-family: var(--font-mono); font-size: 12px; }
+
+.tag-list {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: rgba(230, 57, 70, 0.12);
+  color: var(--accent);
+  font-size: 11px;
+  padding: 4px 9px;
+  border-radius: 4px;
+}
+
+/* ── Main content ────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.review-title {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 500;
+  margin: 14px 0 8px;
+  line-height: 1.1;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.review-byline {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 24px;
+}
+
+.review-byline__author { color: var(--text-soft); }
+
+/* ── Rating panel ────────────────────────────────────────── */
+
+.rating-panel {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--border-radius-md);
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.rating-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rating-panel__label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.rating-panel__value {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.rating-panel__denom {
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+.rating-bar svg { display: block; }
+
+.rating-bar__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  padding: 0 4px;
+}
+
+/* ── Review text ────────────────────────────────────────── */
+
+.review-excerpt {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.55;
+  color: #d8d3c5;
+  margin: 0 0 22px;
+  font-style: italic;
+}
+
+.review-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-soft);
+  margin: 0 0 18px;
+}
+
+/* ── Share row ───────────────────────────────────────────── */
+
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 0.5px solid var(--border);
+  margin-top: 8px;
+}
+
+.share-row__label { font-size: 12px; color: var(--text-dim); }
+.share-row__link  { color: var(--text-soft); font-size: 12px; text-decoration: none; }
+
+/* ── Related reviews ─────────────────────────────────────── */
+
+.related-section {
+  padding: 24px 28px 28px;
+  border-top: 0.5px solid var(--border-subtle);
+}
+
+.section-heading {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.related-card {
+  background: var(--surface);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 0.5px solid var(--border-subtle);
+}
+
+.related-card__cover { aspect-ratio: 3 / 4; }
+
+.related-card__cover--buch-warm { background: linear-gradient(135deg, #3a1c0e, #1c0e06); }
+.related-card__cover--buch-teal { background: linear-gradient(135deg, #1a3838, #0a1c1c); }
+.related-card__cover--musik     { background: linear-gradient(135deg, #2a1838, #140c1c); }
+.related-card__cover--film      { background: linear-gradient(135deg, #1a2845, #0a1424); }
+
+.related-card__body  { padding: 10px; }
+.related-card__type  { font-size: 10px; color: var(--accent); font-weight: 500; }
+.related-card__title { font-size: 13px; color: var(--text-primary); margin-top: 2px; }

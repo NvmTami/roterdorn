@@ -1,84 +1,182 @@
-<link rel="stylesheet" href="./roterdorn_homepage_mockup.css">
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roter Dorn – Homepage (Mockup)</title>
+  <link rel="stylesheet" href="roterdorn_homepage_mockup.css" />
+</head>
+<body>
 
-<h2 class="rd-mockup-sr-only">Mockup einer modernisierten Startseite von roterdorn.de mit dunklem Editorial-Layout, Hero-Bereich für die neueste Rezension und einem Vier-Spalten-Karten-Grid für aktuelle Beiträge aus den Kategorien Buch, Film, Musik und Spiel.</h2>
+<div class="mockup">
 
-<div class="rd-mockup-shell">
+  <header class="site-header">
+    <a href="#" class="brand">
+      <span>roter</span>
+      <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+        <polygon points="0,0 20,7 0,14" fill="#e63946" />
+      </svg>
+      <span>dorn</span>
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul class="primary-nav">
+        <li class="primary-nav__item--active">Bücher</li>
+        <li>Filme</li>
+        <li>Musik</li>
+        <li>Spiele</li>
+        <li class="primary-nav__item--dim">Redaktion</li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="rd-mockup-windowbar">
-    <span class="rd-mockup-dot rd-mockup-dot-red"></span>
-    <span class="rd-mockup-dot rd-mockup-dot-yellow"></span>
-    <span class="rd-mockup-dot rd-mockup-dot-green"></span>
-    <div class="rd-mockup-address">roterdorn.de</div>
+  <div class="hero">
+    <div class="hero__cover">Cover</div>
+    <div class="hero__content">
+      <span class="badge">Rezension · Buch</span>
+      <h1 class="hero__title">Spiel mir das Lied vom Goblin</h1>
+      <p class="hero__meta">Joanna Müller-Lenz · 02.05.2026</p>
+      <p class="hero__excerpt">
+        Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag für die Fantasyliteratur.
+        Der Meister der Fußnoten hat eine große Lücke hinterlassen, die niemand füllen kann.
+      </p>
+      <div class="hero__actions">
+        <a href="#" class="read-more">Weiterlesen →</a>
+        <div class="inline-rating">
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
+          </svg>
+          <span class="inline-rating__text">8/10</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="rd-mockup-browser">
+  <div class="filter-bar">
+    <div class="filter-tabs">
+      <button class="btn-filter btn-filter--active">Alle <span class="btn-filter__count">847</span></button>
+      <button class="btn-filter">Bücher <span class="btn-filter__count">312</span></button>
+      <button class="btn-filter">Filme <span class="btn-filter__count">198</span></button>
+      <button class="btn-filter">Musik <span class="btn-filter__count">214</span></button>
+      <button class="btn-filter">Spiele <span class="btn-filter__count">123</span></button>
+    </div>
+    <select class="sort-select">
+      <option>Neueste zuerst</option>
+      <option>Beste Bewertung</option>
+      <option>A–Z</option>
+    </select>
+  </div>
 
-    <div class="rd-mockup-topnav">
-      <div class="rd-mockup-logo">
-        <span>roter</span>
-        <svg width="22" height="14" viewBox="0 0 22 14" class="rd-mockup-logo-arrow"><polygon points="0,0 22,7 0,14" fill="#E24B4A"/></svg>
-        <span>dorn</span>
+  <div class="reviews-grid">
+
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--film"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Film</div>
+        <div class="review-card__title">8 Blickwinkel</div>
+        <div class="review-card__author">Leonardo Beckert</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">7/10</span>
+        </div>
       </div>
-      <nav class="rd-mockup-nav-links">
-        <span>Bücher</span>
-        <span>Filme</span>
-        <span>Musik</span>
-        <span>Spiele</span>
-        <span class="rd-mockup-nav-muted">Redaktion</span>
-      </nav>
-    </div>
+    </article>
 
-    <div class="rd-mockup-hero-wrap">
-      <div class="rd-mockup-hero-grid">
-        <div class="rd-mockup-hero-cover">Cover</div>
-        <div>
-          <span class="rd-mockup-hero-tag">Rezension · Buch</span>
-          <div class="rd-mockup-hero-title">Spiel mir das Lied vom Goblin</div>
-          <div class="rd-mockup-hero-meta">Joanna Müller-Lenz · 02.05.2026</div>
-          <div class="rd-mockup-hero-copy">Der Tag, an dem Terry Pratchett starb, war ein schwarzer Tag für die Fantasyliteratur. Der Meister der Fußnoten hat eine große Lücke hinterlassen, die niemand füllen kann.</div>
-          <span class="rd-mockup-hero-link">Weiterlesen →</span>
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--musik"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Musik</div>
+        <div class="review-card__title">Fix8:Sëd8 — Secret Gig</div>
+        <div class="review-card__author">Marcus Pohlmann</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">9/10</span>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="rd-mockup-section-head">
-      <span class="rd-mockup-section-title">Aktuell aus der Redaktion</span>
-      <span class="rd-mockup-section-link">Alle ansehen →</span>
-    </div>
-
-    <div class="rd-mockup-grid-wrap">
-      <div class="rd-mockup-card-grid">
-
-        <div class="rd-mockup-card">
-          <div class="rd-mockup-card-cover rd-mockup-card-cover-film"></div>
-          <div class="rd-mockup-card-category">Film</div>
-          <div class="rd-mockup-card-title">8 Blickwinkel</div>
-          <div class="rd-mockup-card-author">Leonardo Beckert</div>
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--spiel"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Spiel</div>
+        <div class="review-card__title">Shadow Cards</div>
+        <div class="review-card__author">Marcus Pohlmann</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">6/10</span>
         </div>
-
-        <div class="rd-mockup-card">
-          <div class="rd-mockup-card-cover rd-mockup-card-cover-music"></div>
-          <div class="rd-mockup-card-category">Musik</div>
-          <div class="rd-mockup-card-title">Fïx8:Sëd8 — Secret Gig</div>
-          <div class="rd-mockup-card-author">Marcus Pohlmann</div>
-        </div>
-
-        <div class="rd-mockup-card">
-          <div class="rd-mockup-card-cover rd-mockup-card-cover-game"></div>
-          <div class="rd-mockup-card-category">Spiel</div>
-          <div class="rd-mockup-card-title">Shadow Cards</div>
-          <div class="rd-mockup-card-author">Marcus Pohlmann</div>
-        </div>
-
-        <div class="rd-mockup-card">
-          <div class="rd-mockup-card-cover rd-mockup-card-cover-book"></div>
-          <div class="rd-mockup-card-category">Buch</div>
-          <div class="rd-mockup-card-title">Noch fünf Tage</div>
-          <div class="rd-mockup-card-author">Martin Wagner</div>
-        </div>
-
       </div>
-    </div>
+    </article>
+
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--buch"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Buch</div>
+        <div class="review-card__title">Noch fünf Tage</div>
+        <div class="review-card__author">Martin Wagner</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">8/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--buch-teal"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Buch</div>
+        <div class="review-card__title">Wolsung</div>
+        <div class="review-card__author">Artur Ganszyniec</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">7/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--spiel-gold"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Spiel</div>
+        <div class="review-card__title">Da Luigi</div>
+        <div class="review-card__author">Rüdiger Dorn</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">8/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--musik-red"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Musik</div>
+        <div class="review-card__title">The Eden House</div>
+        <div class="review-card__author">Jungle Records</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">7/10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="review-card">
+      <div class="review-card__cover review-card__cover--film-dark"></div>
+      <div class="review-card__body">
+        <div class="review-card__type">Film</div>
+        <div class="review-card__title">Transmetropolitan</div>
+        <div class="review-card__author">Warren Ellis</div>
+        <div class="card-rating">
+          <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946"/></svg>
+          <span class="card-rating__text">9/10</span>
+        </div>
+      </div>
+    </article>
 
   </div>
+
+  <div class="pagination-hint">Seite 1 von 106 · Mehr laden →</div>
+
 </div>
+
+</body>
+</html>
