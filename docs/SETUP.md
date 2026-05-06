@@ -23,26 +23,27 @@ cd roterdorn
 
 ### 2.2 Datenbank anlegen und Daten einspielen
 
-XAMPP Control Panel → **Shell** öffnen, dann:
+PowerShell aus dem Projektverzeichnis:
 
-```sql
-mysql -u root
-CREATE DATABASE roterdorn CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE roterdorn;
-SOURCE C:/Pfad/zum/Projekt/roterdorn/database/dorn_db_schema_new.sql;
-SOURCE C:/Pfad/zum/Projekt/roterdorn/database/seed_data.sql;
-EXIT;
+```powershell
+# Datenbank anlegen
+& "C:\xampp\mysql\bin\mysql.exe" -u root -e "CREATE DATABASE IF NOT EXISTS roterdorn CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# Schema + Seed-Daten einspielen (--default-character-set ist wichtig für Umlaute)
+& "C:\xampp\mysql\bin\mysql.exe" --default-character-set=utf8mb4 -u root roterdorn -e "SOURCE database/dorn_db_new.sql"
 ```
 
-> Pfad anpassen — Backslashes durch Schrägstriche ersetzen, da MySQL unter Windows sonst Probleme macht.
+> **Wichtig:** Den zweiten Befehl aus dem Projektroot (`roterdorn/`) ausführen, nicht aus einem Unterordner.
+
+> `dorn_db_new.sql` enthält Schema, Seed-Daten und Ratings in einer Datei — kein separater Schema-Import nötig.
 
 ### 2.3 Verbindung prüfen
 
-```sql
-mysql -u root roterdorn -e "SELECT COUNT(*) FROM reviews;"
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root roterdorn -e "SELECT COUNT(*) FROM reviews;"
 ```
 
-Erwartetes Ergebnis: `8` (oder mehr, falls eigene Seed-Einträge hinzugefügt wurden)
+Erwartetes Ergebnis: `27`
 
 ---
 
@@ -133,5 +134,5 @@ music_details    — musikspezifisch (artist, label, …)
 game_details     — spielspezifisch (developer, players, platforms, …)
 ```
 
-Vollständiges Schema: [`database/dorn_db_schema_new.sql`](../database/dorn_db_schema_new.sql)  
-Beispieldaten: [`database/seed_data.sql`](../database/seed_data.sql)
+Vollständiges Schema + Seed-Daten: [`database/dorn_db_new.sql`](../database/dorn_db_new.sql)  
+Nur Schema (zur Referenz): [`database/dorn_db_schema_new.sql`](../database/dorn_db_schema_new.sql)
