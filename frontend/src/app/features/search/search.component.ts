@@ -3,12 +3,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
+import { FooterComponent } from '../../layout/footer/footer.component';
 import { Review, ReviewService } from '../../core/services/review.service';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, RouterLink, HeaderComponent, MediaTypePipe],
+  imports: [CommonModule, RouterLink, HeaderComponent, MediaTypePipe, FooterComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

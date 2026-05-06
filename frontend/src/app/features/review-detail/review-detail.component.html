@@ -6,7 +6,7 @@
   }
 
   @if (loading()) {
-    <p class="state-message">Lädt…</p>
+    <div class="spinner" role="status" aria-label="Wird geladen"></div>
   }
 
   @if (review(); as r) {
@@ -95,4 +95,6 @@
       </article>
     </div>
   }
+
+  <app-footer />
 </div>

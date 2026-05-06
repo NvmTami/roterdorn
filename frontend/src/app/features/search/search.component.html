@@ -31,7 +31,7 @@
   }
 
   @if (loading()) {
-    <p class="state-message">Suche läuft…</p>
+    <div class="spinner" role="status" aria-label="Wird geladen"></div>
   }
 
   <div class="search-controls">
@@ -112,6 +112,11 @@
   }
 
   @if (!loading() && !error() && searchQuery().length >= 2 && filteredResults().length === 0) {
-    <p class="state-message">Keine Ergebnisse für „{{ searchQuery() }}".</p>
+    <div class="empty-state">
+      <div class="empty-state__icon">✦</div>
+      <p class="empty-state__text">Keine Ergebnisse für „{{ searchQuery() }}“.</p>
+    </div>
   }
+
+  <app-footer />
 </div>

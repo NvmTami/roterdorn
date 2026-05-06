@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ReviewDetail, ReviewService } from '../../core/services/review.service';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
+import { FooterComponent } from '../../layout/footer/footer.component';
 
 const DETAIL_LABELS: Record<string, string> = {
   publisher:    'Verlag',
@@ -27,7 +28,7 @@ const DETAIL_LABELS: Record<string, string> = {
 @Component({
   selector: 'app-review-detail',
   standalone: true,
-  imports: [RouterLink, CommonModule, MediaTypePipe, HeaderComponent],
+  imports: [RouterLink, CommonModule, MediaTypePipe, HeaderComponent, FooterComponent],
   templateUrl: './review-detail.component.html',
   styleUrl: './review-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

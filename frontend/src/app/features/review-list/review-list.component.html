@@ -6,7 +6,7 @@
   }
 
   @if (loading()) {
-    <p class="state-message">Lädt…</p>
+    <div class="spinner" role="status" aria-label="Wird geladen"></div>
   }
 
   @if (featuredReview(); as featured) {
@@ -58,6 +58,13 @@
     </select>
   </div>
 
+  @if (!loading() && !error() && editorialReviews().length === 0) {
+    <div class="empty-state">
+      <div class="empty-state__icon">✦</div>
+      <p class="empty-state__text">Keine Rezensionen für diesen Filter.</p>
+    </div>
+  }
+
   <div class="reviews-grid">
     @for (review of editorialReviews(); track review.id) {
       <article class="review-card">
@@ -86,4 +93,6 @@
       <button class="btn-load-more" (click)="loadMore()">Weitere Rezensionen laden</button>
     </div>
   }
+
+  <app-footer />
 </div>
