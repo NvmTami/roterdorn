@@ -44,6 +44,15 @@
 
 /* ── Sidebar ─────────────────────────────────────────────── */
 
+.cover-image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 16px;
+}
+
 .cover-placeholder {
   background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
   border-radius: var(--border-radius-md);
@@ -247,12 +256,14 @@
   border: 0.5px solid var(--border-subtle);
 }
 
-.related-card__cover { aspect-ratio: 3 / 4; }
+.related-card__cover {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
 
-.related-card__cover--buch-warm { background: linear-gradient(135deg, #3a1c0e, #1c0e06); }
-.related-card__cover--buch-teal { background: linear-gradient(135deg, #1a3838, #0a1c1c); }
-.related-card__cover--musik     { background: linear-gradient(135deg, #2a1838, #140c1c); }
-.related-card__cover--film      { background: linear-gradient(135deg, #1a2845, #0a1424); }
+.related-card__cover--placeholder { background: linear-gradient(135deg, #2a1810, #120c08); }
 
 .related-card__body  { padding: 10px; }
 .related-card__type  { font-size: 10px; color: var(--accent); font-weight: 500; }
