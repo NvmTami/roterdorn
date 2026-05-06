@@ -33,8 +33,16 @@ export class ReviewListComponent {
   loading  = signal(true);
   error    = signal(false);
 
-  featuredReview  = computed(() => this.reviews()[0] ?? null);
-  editorialReviews = computed(() => this.reviews().slice(1, 5));
+  private readonly PAGE_SIZE = 12;
+  visibleCount = signal(this.PAGE_SIZE);
+
+  featuredReview   = computed(() => this.reviews()[0] ?? null);
+  editorialReviews = computed(() => this.reviews().slice(1, this.visibleCount() + 1));
+  hasMore          = computed(() => this.reviews().length > this.visibleCount() + 1);
+
+  loadMore(): void {
+    this.visibleCount.update(n => n + this.PAGE_SIZE);
+  }
 
   readonly activeFilter = signal('alle');
 
@@ -48,6 +56,7 @@ export class ReviewListComponent {
 
   setFilter(value: string): void {
     this.activeFilter.set(value);
+    this.visibleCount.set(this.PAGE_SIZE);
     this.loadReviews(FILTER_TO_TYPE[value]);
   }
 

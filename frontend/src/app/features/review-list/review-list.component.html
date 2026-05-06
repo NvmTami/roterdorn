@@ -81,5 +81,9 @@
     }
   </div>
 
-  <div class="pagination-hint">Seite 1 von 106 · Mehr laden →</div>
+  @if (hasMore()) {
+    <div class="load-more-wrap">
+      <button class="btn-load-more" (click)="loadMore()">Weitere Rezensionen laden</button>
+    </div>
+  }
 </div>

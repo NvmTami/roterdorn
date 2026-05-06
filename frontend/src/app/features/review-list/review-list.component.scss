@@ -19,9 +19,15 @@
 }
 
 .hero__cover {
-  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
   border-radius: var(--border-radius-md);
   aspect-ratio: 3 / 4;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.hero__cover--placeholder {
+  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
   display: flex;
   align-items: flex-end;
   padding: 14px;
@@ -154,16 +160,14 @@
 
 .review-card__cover {
   aspect-ratio: 3 / 4;
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
-.review-card__cover--film       { background: #1a2845; }
-.review-card__cover--musik      { background: #2a1838; }
-.review-card__cover--spiel      { background: #0e2a20; }
-.review-card__cover--buch       { background: #3a1c0e; }
-.review-card__cover--buch-teal  { background: #1a3838; }
-.review-card__cover--spiel-gold { background: #2a2410; }
-.review-card__cover--musik-red  { background: #38101a; }
-.review-card__cover--film-dark  { background: #1c1c2e; }
+.review-card__cover--placeholder {
+  background: linear-gradient(135deg, #2a1810 0%, #120c08 100%);
+}
 
 .review-card__body {
   padding: 12px;
@@ -201,11 +205,25 @@
   font-weight: 500;
 }
 
-/* ── Pagination hint ─────────────────────────────────────── */
+/* ── Load more ──────────────────────────────────────────── */
 
-.pagination-hint {
+.load-more-wrap {
   text-align: center;
-  padding: 0 28px 24px;
-  font-size: 12px;
-  color: var(--text-dim);
+  padding: 0 28px 28px;
+}
+
+.btn-load-more {
+  background: transparent;
+  color: var(--text-soft);
+  border: 0.5px solid var(--border-btn);
+  padding: 10px 28px;
+  border-radius: var(--border-radius-md);
+  font-size: 14px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.btn-load-more:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
