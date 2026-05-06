@@ -7,45 +7,26 @@ zu einem modernen Stack mit Angular, Flask und MySQL.
 **Team:** Monika, Tamara, Vanessa, Lewis
 
 ## Tech Stack
-- **Frontend:** Angular (TypeScript)
-- **Backend:** Python Flask (REST API)
-- **Datenbank:** MySQL
+- **Frontend:** Angular 19 (TypeScript, Standalone Components, Signals)
+- **Backend:** Python 3.11 / Flask 3 (REST API)
+- **Datenbank:** MariaDB 10.4 via XAMPP
 
 ## Projektstruktur
 ```
 roterdorn/
-├── backend/        ← Flask REST API
-├── frontend/       ← Angular Anwendung
-├── database/       ← SQL-Schema und Migrationsskripte
-└── docs/           ← Dokumentation und Präsentation
+├── backend/        ← Flask REST API (app.py, routes/, db.py, config.py)
+├── frontend/       ← Angular Anwendung (src/app/)
+├── database/       ← SQL-Schema und Seed-Daten
+├── mockups/        ← HTML/CSS-Mockups aller drei Seiten
+└── docs/           ← Arbeitsplan, SETUP.md, API-Doku
 ```
 
 ## Setup
-Siehe `docs/SETUP.md`
+Siehe [docs/SETUP.md](docs/SETUP.md)
 
 ## Aufgabenverteilung
-- **[Name1]:** Backend / API
-- **[Name2]:** Frontend / UI
-- **[Name3]:** Datenbank / Migration
-- **[Name4]:** Dokumentation / Präsentation
-
-
-##  Frontend
-installation:
-
-To install Angular CLI on your local system, you need to `install Node.js`. Angular CLI uses Node and its associated package manager, npm, to install and run JavaScript tools outside the browser.
-
-Download and install Node.js, which will include the npm CLI as well. Angular requires an active LTS or maintenance LTS version of Node.js. See Angular's version compatibility guide for more information.
-https://nodejs.org/en/download
-
-- **npm install -g @angular/cli**
-
-Anwendung starten
-Um den lokalen Entwicklungsserver zu starten, nutze:
-
-Bash
-- **ng serve --open**
-Adresse: http://localhost:4200
-
-Auto-Reload: Die Seite aktualisiert sich bei jeder Code-Änderung von selbst.
+- **Monika:** Dokumentation / Präsentation
+- **Tamara:** Frontend / UI
+- **Vanessa:** Datenbank / Migration
+- **Lewis:** Backend / API
 
