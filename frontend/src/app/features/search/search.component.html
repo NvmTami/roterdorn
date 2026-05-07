@@ -58,12 +58,11 @@
   @if (topResult(); as top) {
     <div class="top-result-wrap">
       <a class="top-result" [routerLink]="['/review', top.id]" [attr.aria-label]="top.title">
-        <div class="top-result__cover-wrap">
+        @if (top.cover_url) {
+          <img class="top-result__cover" [src]="top.cover_url" [alt]="top.title" />
+        } @else {
           <div class="top-result__cover top-result__cover--placeholder"></div>
-          @if (top.cover_url) {
-            <img class="top-result__cover top-result__cover--img" [src]="top.cover_url" [alt]="top.title" />
-          }
-        </div>
+        }
         <div class="top-result__body">
           <div class="top-result__badges">
             <span class="badge-type">{{ top.media_type | mediaType }}</span>
@@ -83,12 +82,11 @@
       @for (result of restResults(); track result.id) {
         <article class="result-card">
           <a class="result-card__link" [routerLink]="['/review', result.id]" [attr.aria-label]="result.title">
-            <div class="result-card__cover-wrap">
-              <div class="result-card__cover--placeholder"></div>
-              @if (result.cover_url) {
-                <img class="result-card__cover--img" [src]="result.cover_url" [alt]="result.title" />
-              }
-            </div>
+            @if (result.cover_url) {
+              <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
+            } @else {
+              <div class="result-card__cover result-card__cover--placeholder"></div>
+            }
             <div class="result-card__body">
               <div class="result-card__type">{{ result.media_type | mediaType }}</div>
               <div class="result-card__title">{{ result.title }}</div>
