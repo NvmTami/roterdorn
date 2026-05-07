@@ -169,11 +169,6 @@ export class CoverPlaceholderComponent {
     return `url(#${this.uid}-${name})`;
   }
 }
-
-@Component({
-  selector: 'app-cover-placeholder',
-  standalone: true,
-  template: `
     <svg
       viewBox="0 0 150 200"
       preserveAspectRatio="xMidYMid slice"
