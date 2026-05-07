@@ -131,7 +131,8 @@ def search():
         cur = db.cursor()
         cur.execute("""
             SELECT r.id, r.title, r.media_type, r.rating,
-                   r.excerpt, a.name AS author_name
+                   r.excerpt, r.cover_url, r.published_at,
+                   a.name AS author_name
             FROM reviews r
             JOIN authors a ON r.author_id = a.id
             WHERE r.published_at IS NOT NULL
@@ -139,7 +140,11 @@ def search():
             LIMIT 20
         """, (f"%{q}%", f"%{q}%"))
         rows = cur.fetchall()
-        return jsonify({"data": [row_to_dict(cur, r) for r in rows]})
+        result = [row_to_dict(cur, r) for r in rows]
+        for item in result:
+            if item.get("published_at"):
+                item["published_at"] = str(item["published_at"])
+        return jsonify({"data": result})
     except Error as e:
         return jsonify({"error": "Datenbankfehler"}), 500
     finally:
