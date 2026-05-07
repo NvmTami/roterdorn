@@ -46,10 +46,15 @@
         </button>
       }
     </div>
-    <select class="sort-select" aria-label="Sortierung">
-      <option>Neueste zuerst</option>
-      <option>Beste Bewertung</option>
-      <option>A–Z</option>
+    <select
+      class="sort-select"
+      aria-label="Sortierung"
+      [value]="activeSort()"
+      (change)="setSort($any($event.target).value)"
+    >
+      @for (opt of sortOptions; track opt.value) {
+        <option [value]="opt.value">{{ opt.label }}</option>
+      }
     </select>
   </div>
 

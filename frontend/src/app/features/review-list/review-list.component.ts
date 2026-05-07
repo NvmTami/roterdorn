@@ -38,9 +38,33 @@ export class ReviewListComponent {
   private readonly PAGE_SIZE = 12;
   visibleCount = signal(this.PAGE_SIZE);
 
-  featuredReview   = computed(() => this.reviews()[0] ?? null);
-  editorialReviews = computed(() => this.reviews().slice(1, this.visibleCount() + 1));
-  hasMore          = computed(() => this.reviews().length > this.visibleCount() + 1);
+  readonly activeSort = signal('newest');
+
+  readonly sortOptions = [
+    { label: 'Neueste zuerst', value: 'newest' },
+    { label: 'Beste Bewertung', value: 'best'   },
+    { label: 'A–Z',            value: 'az'     },
+  ];
+
+  setSort(value: string): void {
+    this.activeSort.set(value);
+    this.visibleCount.set(this.PAGE_SIZE);
+  }
+
+  private readonly sortedReviews = computed(() => {
+    const list = [...this.reviews()];
+    switch (this.activeSort()) {
+      case 'best':   return list.sort((a, b) => b.rating - a.rating);
+      case 'az':     return list.sort((a, b) => a.title.localeCompare(b.title, 'de'));
+      default:       return list.sort((a, b) =>
+        new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+      );
+    }
+  });
+
+  featuredReview   = computed(() => this.sortedReviews()[0] ?? null);
+  editorialReviews = computed(() => this.sortedReviews().slice(1, this.visibleCount() + 1));
+  hasMore          = computed(() => this.sortedReviews().length > this.visibleCount() + 1);
 
   loadMore(): void {
     this.visibleCount.update(n => n + this.PAGE_SIZE);
