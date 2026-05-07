@@ -64,6 +64,12 @@ export class SearchComponent {
   topResult = () => this.filteredResults()[0] ?? null;
   restResults = () => this.filteredResults().slice(1);
 
+  brokenCovers = signal(new Set<number>());
+
+  onCoverError(id: number): void {
+    this.brokenCovers.update(s => new Set([...s, id]));
+  }
+
   private doSearch(q: string): void {
     this.loading.set(true);
     this.error.set(false);

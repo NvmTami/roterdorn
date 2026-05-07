@@ -61,6 +61,11 @@ export class ReviewDetailComponent {
   review  = signal<ReviewDetail | null>(null);
   loading = signal(true);
   error   = signal(false);
+  coverBroken = signal(false);
+
+  onCoverError(): void {
+    this.coverBroken.set(true);
+  }
 
   displayRating = computed(() => toDisplayRating(this.review()?.rating));
 

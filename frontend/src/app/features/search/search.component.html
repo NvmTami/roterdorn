@@ -58,8 +58,8 @@
   @if (topResult(); as top) {
     <div class="top-result-wrap">
       <a class="top-result" [routerLink]="['/review', top.id]" [attr.aria-label]="top.title">
-        @if (top.cover_url) {
-          <img class="top-result__cover" [src]="top.cover_url" [alt]="top.title" />
+        @if (top.cover_url && !brokenCovers().has(top.id)) {
+          <img class="top-result__cover" [src]="top.cover_url" [alt]="top.title" (error)="onCoverError(top.id)" />
         } @else {
           <app-cover-placeholder class="top-result__cover" />
         }
@@ -82,8 +82,8 @@
       @for (result of restResults(); track result.id) {
         <article class="result-card">
           <a class="result-card__link" [routerLink]="['/review', result.id]" [attr.aria-label]="result.title">
-            @if (result.cover_url) {
-              <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
+              @if (result.cover_url && !brokenCovers().has(result.id)) {
+              <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" (error)="onCoverError(result.id)" />
             } @else {
               <app-cover-placeholder class="result-card__cover" />
             }

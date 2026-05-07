@@ -33,6 +33,8 @@ export class ReviewListComponent {
   private readonly reviewService = inject(ReviewService);
 
   reviews  = signal<HomeReview[]>([]);
+  featuredCoverBroken = signal(false);
+  brokenCovers        = signal(new Set<number>());
   loading  = signal(true);
   error    = signal(false);
 
@@ -69,6 +71,14 @@ export class ReviewListComponent {
 
   loadMore(): void {
     this.visibleCount.update(n => n + this.PAGE_SIZE);
+  }
+
+  onFeaturedCoverError(): void {
+    this.featuredCoverBroken.set(true);
+  }
+
+  onCoverError(id: number): void {
+    this.brokenCovers.update(s => new Set([...s, id]));
   }
 
   readonly activeFilter = signal('alle');
