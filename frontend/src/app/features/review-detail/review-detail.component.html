@@ -23,7 +23,7 @@
         @if (r.cover_url) {
           <img class="cover-image" [src]="r.cover_url" [alt]="r.title" />
         } @else {
-          <div class="cover-placeholder" aria-hidden="true"></div>
+          <app-cover-placeholder class="cover-image" />
         }
 
         @if (detailEntries().length > 0) {

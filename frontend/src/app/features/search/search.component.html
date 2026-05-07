@@ -61,7 +61,7 @@
         @if (top.cover_url) {
           <img class="top-result__cover" [src]="top.cover_url" [alt]="top.title" />
         } @else {
-          <div class="top-result__cover top-result__cover--placeholder"></div>
+          <app-cover-placeholder class="top-result__cover" />
         }
         <div class="top-result__body">
           <div class="top-result__badges">
@@ -85,7 +85,7 @@
             @if (result.cover_url) {
               <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
             } @else {
-              <div class="result-card__cover result-card__cover--placeholder"></div>
+              <app-cover-placeholder class="result-card__cover" />
             }
             <div class="result-card__body">
               <div class="result-card__type">{{ result.media_type | mediaType }}</div>

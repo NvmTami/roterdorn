@@ -66,18 +66,6 @@
   margin-bottom: 16px;
 }
 
-.cover-placeholder {
-  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
-  border-radius: var(--border-radius-md);
-  aspect-ratio: 3 / 4;
-  display: flex;
-  align-items: flex-end;
-  padding: 14px;
-  font-size: 12px;
-  color: rgba(240, 236, 228, 0.5);
-  margin-bottom: 16px;
-}
-
 .meta-panel {
   background: var(--surface);
   border: 0.5px solid var(--border);

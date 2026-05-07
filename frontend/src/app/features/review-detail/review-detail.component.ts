@@ -7,6 +7,7 @@ import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
 import { RatingVineComponent } from '../../shared/components/rating-vine/rating-vine.component';
+import { CoverPlaceholderComponent } from '../../shared/components/cover-placeholder/cover-placeholder.component';
 
 const DETAIL_LABELS: Record<string, string> = {
   publisher:    'Verlag',
@@ -46,6 +47,7 @@ const toDisplayRating = (storedRating: number | string | undefined): number => {
     HeaderComponent,
     FooterComponent,
     RatingVineComponent,
+    CoverPlaceholderComponent,
   ],
   templateUrl: './review-detail.component.html',
   styleUrl: './review-detail.component.scss',
