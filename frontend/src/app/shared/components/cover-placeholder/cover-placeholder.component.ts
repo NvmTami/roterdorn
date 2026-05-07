@@ -51,12 +51,6 @@ let _uid = 0;
           <stop offset="0%"  stop-color="rgba(255,255,255,0.30)"/>
           <stop offset="50%" stop-color="rgba(255,255,255,0)"/>
         </linearGradient>
-        <!-- Glint spot -->
-        <radialGradient [attr.id]="id('glint')" cx=".5" cy=".5" r=".5">
-          <stop offset="0%"   stop-color="rgba(255,255,255,1.0)"/>
-          <stop offset="35%"  stop-color="rgba(255,255,255,0.50)"/>
-          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-        </radialGradient>
       </defs>
 
       <!-- 1. Background -->
@@ -72,18 +66,12 @@ let _uid = 0;
       <line x1="0.5"   y1="1"     x2="0.5"   y2="199"   stroke="rgba(255,255,255,0.24)" stroke-width="1"/>
       <line x1="149.5" y1="1"     x2="149.5" y2="199"   stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
       <line x1="1"     y1="199.5" x2="149"   y2="199.5" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
-      <!-- 6. Inner refraction seam -->
-      <line x1="8" y1="44" x2="142" y2="44" stroke="rgba(255,255,255,0.24)" stroke-width="0.7" stroke-linecap="round"/>
-      <!-- 7. Second faint seam -->
-      <line x1="0" y1="54" x2="80" y2="54" stroke="rgba(255,255,255,0.09)" stroke-width="0.5"/>
       <!-- 8. Triangle aura -->
       <ellipse cx="75" cy="95" rx="54" ry="38" [attr.fill]="ref('aura')"/>
       <!-- 9. Triangle – bounding-box centred at (75,95) -->
       <path d="M 0 0 L 71 25 L 0 50 Z" transform="translate(28.85, 62.5) scale(1.3)" fill="#e63946" opacity="0.96"/>
       <!-- 10. Triangle gloss -->
       <path d="M 0 0 L 71 25 L 0 50 Z" transform="translate(28.85, 62.5) scale(1.3)" [attr.fill]="ref('tg')"/>
-      <!-- 11. Glint -->
-      <ellipse cx="19" cy="15" rx="5.5" ry="3.5" [attr.fill]="ref('glint')"/>
       <!-- 12. Wordmark -->
       <text x="75" y="182" text-anchor="middle"
             font-family="'Space Grotesk', system-ui, sans-serif"
