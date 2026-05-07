@@ -230,14 +230,14 @@
 
 .result-card__cover-wrap {
   position: relative;
-  aspect-ratio: 3 / 4;
   width: 100%;
   overflow: hidden;
 }
 
 .result-card__cover--placeholder {
-  position: absolute;
-  inset: 0;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   background: linear-gradient(135deg, #2a1810 0%, #120c08 100%);
 }
 
