@@ -2,7 +2,9 @@
   <app-header />
 
   @if (error()) {
-    <p class="state-message state-message--error">Review konnte nicht geladen werden.</p>
+    <p class="state-message state-message--error">
+      Review konnte nicht geladen werden.
+    </p>
   }
 
   @if (loading()) {
@@ -39,54 +41,29 @@
         }
       </aside>
 
-      <article>
-        <span class="badge">Rezension · {{ r.media_type | mediaType }}</span>
+      <article class="article">
+        <p class="kicker">Rezension &middot; {{ r.media_type | mediaType }}</p>
 
         <h1 class="review-title">{{ r.title }}</h1>
 
         <p class="review-byline">
           Rezensiert von
           <span class="review-byline__author">{{ r.author_name }}</span>
-          · {{ r.published_at | date:'dd.MM.yyyy' }}
+          &middot; {{ r.published_at | date:'dd.MM.yyyy' }}
         </p>
 
-        <div class="rating-panel">
-          <div class="rating-panel__head">
-            <span class="rating-panel__label">Bewertung</span>
-            <span class="rating-panel__value">
-              {{ displayRating() }}<span class="rating-panel__denom">/{{ maxRating }}</span>
-            </span>
-          </div>
-
-          <div class="rating-bar" aria-hidden="true">
-            <svg width="100%" height="32" viewBox="0 0 400 32" preserveAspectRatio="none">
-              <line x1="6" y1="22" x2="394" y2="22" stroke="#3a2418" stroke-width="1.5" />
-              @for (marker of ratingMarkers; track marker) {
-                <g [attr.transform]="'translate(' + (20 + (marker - 1) * 40) + ',22)'">
-                  @if (marker <= displayRating()) {
-                    <polygon points="0,0 -7,-14 7,-14" fill="#e63946" />
-                    <circle cx="0" cy="0" r="2" fill="#e63946" />
-                  } @else {
-                    <polygon
-                      points="0,0 -7,-14 7,-14"
-                      fill="none"
-                      stroke="#3a2418"
-                      stroke-width="1.5"
-                    />
-                    <circle cx="0" cy="0" r="2" fill="#3a2418" />
-                  }
-                </g>
-              }
-            </svg>
-            <div class="rating-bar__scale">
-              <span>1</span><span>5</span><span>10</span>
-            </div>
-          </div>
-        </div>
+        <app-rating-vine
+          class="review-rating"
+          [rating]="displayRating()"
+          label="Urteil der Redaktion"
+        />
 
         <p class="review-excerpt">{{ r.excerpt }}</p>
 
-        <div class="review-body" [innerHTML]="safeContent()"></div>
+        <div
+          class="review-body prose has-drop-cap"
+          [innerHTML]="safeContent()"
+        ></div>
 
         <div class="share-row">
           <span class="share-row__label">Teilen:</span>

@@ -49,6 +49,7 @@
 .hero__title {
   font-family: var(--font-serif);
   font-size: 32px;
+  font-optical-sizing: auto;
   font-weight: 500;
   margin: 12px 0 6px;
   line-height: 1.15;
@@ -79,12 +80,6 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-}
-
-.inline-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .inline-rating__text {
@@ -190,13 +185,6 @@
 .review-card__author {
   font-size: 12px;
   color: var(--text-muted);
-}
-
-.card-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 8px;
 }
 
 .card-rating__text {

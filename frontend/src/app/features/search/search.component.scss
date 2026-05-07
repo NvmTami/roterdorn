@@ -205,13 +205,6 @@
 .result-card__title  { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
 .result-card__author { font-size: 12px; color: var(--text-muted); }
 
-.card-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 8px;
-}
-
 .card-rating__text { font-size: 11px; color: var(--text-faint); font-weight: 500; }
 
 /* ── Load more ───────────────────────────────────────────── */

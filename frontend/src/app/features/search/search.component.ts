@@ -5,11 +5,13 @@ import { HeaderComponent } from '../../layout/header/header.component';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { FooterComponent } from '../../layout/footer/footer.component';
 import { Review, ReviewService } from '../../core/services/review.service';
+import { CardRatingComponent } from '../../shared/components/card-rating/card-rating.component'
+
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, RouterLink, HeaderComponent, MediaTypePipe, FooterComponent],
+  imports: [CommonModule, RouterLink, HeaderComponent, MediaTypePipe, FooterComponent, CardRatingComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

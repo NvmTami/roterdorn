@@ -5,6 +5,7 @@ import { Review, ReviewService } from '../../core/services/review.service';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
+import { CardRatingComponent } from '../../shared/components/card-rating/card-rating.component'
 
 interface HomeReview extends Review {
   author: string;
@@ -22,7 +23,7 @@ const FILTER_TO_TYPE: Record<string, string | undefined> = {
 @Component({
   selector: 'app-review-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent, FooterComponent, CardRatingComponent],
   templateUrl: './review-list.component.html',
   styleUrl: './review-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

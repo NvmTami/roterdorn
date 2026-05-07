@@ -23,12 +23,7 @@
         <p class="hero__excerpt">{{ featured.excerpt }}</p>
         <div class="hero__actions">
           <a [routerLink]="['/review', featured.id]" class="read-more">Weiterlesen →</a>
-          <div class="inline-rating">
-            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-              <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
-            </svg>
-            <span class="inline-rating__text">{{ featured.rating * 2 }}/10</span>
-          </div>
+          <app-card-rating [rating]="featured.rating * 2" />
         </div>
       </div>
     </section>
@@ -77,12 +72,7 @@
           <div class="review-card__type">{{ review.media_type | mediaType }}</div>
           <div class="review-card__title">{{ review.title }}</div>
           <div class="review-card__author">{{ review.author }}</div>
-          <div class="card-rating">
-            <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
-              <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
-            </svg>
-            <span class="card-rating__text">{{ review.rating * 2 }}/10</span>
-          </div>
+          <app-card-rating [rating]="review.rating * 2" />
         </div>
       </article>
     }
