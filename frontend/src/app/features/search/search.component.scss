@@ -187,6 +187,17 @@
   border-radius: var(--border-radius-md);
   overflow: hidden;
   border: 0.5px solid var(--border-subtle);
+  transition: border-color 0.15s;
+}
+
+.result-card:hover {
+  border-color: var(--accent-dim);
+}
+
+.result-card__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .result-card__cover {
@@ -197,6 +208,9 @@
 }
 
 .result-card__cover--placeholder {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  display: block;
   background: linear-gradient(135deg, #2a1810 0%, #120c08 100%);
 }
 

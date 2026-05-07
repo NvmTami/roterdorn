@@ -83,19 +83,19 @@
     <div class="results-grid">
       @for (result of restResults(); track result.id) {
         <article class="result-card">
-          @if (result.cover_url) {
-            <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
-          } @else {
-            <div class="result-card__cover result-card__cover--placeholder"></div>
-          }
-          <div class="result-card__body">
-            <div class="result-card__type">{{ result.media_type | mediaType }}</div>
-            <div class="result-card__title">
-              <a [routerLink]="['/review', result.id]">{{ result.title }}</a>
+          <a class="result-card__link" [routerLink]="['/review', result.id]" [attr.aria-label]="result.title">
+            @if (result.cover_url) {
+              <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
+            } @else {
+              <div class="result-card__cover result-card__cover--placeholder"></div>
+            }
+            <div class="result-card__body">
+              <div class="result-card__type">{{ result.media_type | mediaType }}</div>
+              <div class="result-card__title">{{ result.title }}</div>
+              <div class="result-card__author">{{ result.author_name }}</div>
+              <app-card-rating [rating]="result.rating * 2" />
             </div>
-            <div class="result-card__author">{{ result.author_name }}</div>
-            <app-card-rating [rating]="result.rating * 2" />
-          </div>
+          </a>
         </article>
       }
     </div>
