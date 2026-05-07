@@ -169,8 +169,7 @@ export class CoverPlaceholderComponent {
     return `url(#${this.uid}-${name})`;
   }
 }
-    <svg
-      viewBox="0 0 150 200"
+
       preserveAspectRatio="xMidYMid slice"
       width="100%"
       height="100%"
