@@ -77,17 +77,10 @@ body {
 }
 
 /**
- * Drop cap on the first body paragraph of a long-form article –
- * i.e. the paragraph *after* the intro sentence / excerpt.
- *
- * Two patterns are handled:
- *   a) <p intro>  <h2>  <p body>  → first <p> after the first <h2>
- *   b) <p intro>  <p body>        → second <p> (no heading between them)
- *
- * Apply .has-drop-cap on the .review-body container.
+ * Drop cap – injected via TypeScript on the correct paragraph.
+ * The class .drop-cap is added programmatically in review-detail.component.ts.
  */
-.has-drop-cap > h2:first-of-type + p::first-letter,
-.has-drop-cap > p:first-of-type + p::first-letter {
+.drop-cap::first-letter {
   font-family: var(--font-serif);
   font-weight: 500;
   font-size: 4.6em;
