@@ -37,6 +37,15 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 body {
   margin: 0;
   background: var(--bg-base);
