@@ -111,7 +111,7 @@
 .meta-row:last-child { border-bottom: none; }
 
 .meta-row dt { color: var(--text-muted); font-weight: normal; }
-.meta-row dd { color: var(--text-primary); margin: 0; }
+.meta-row dd { color: var(--text-primary); margin: 0; text-align: right; }
 .meta-row dd.isbn { font-family: var(--font-mono); font-size: 12px; }
 
 .tag-list {
