@@ -68,7 +68,7 @@ MVP brutal definiert: genau 3 Seiten
 
 ---
 
-*Aktualisierter Plan bis zur Präsentation am 21.05. — Stand: 06.05.2026*
+*Aktualisierter Plan bis zur Präsentation am 21.05. — Stand: 07.05.2026*
 
 ---
 
@@ -196,12 +196,18 @@ Polishing 🔄
 - Error-State „Keine Verbindung zum Server" in allen Komponenten vorhanden.
 - `[innerHTML]` + `DomSanitizer` für Review-Volltext auf der Detailseite implementiert.
 - Cover-Images normiert (`object-fit: cover`, festes `aspect-ratio: 3/4`).
+- **Card-Navigation:** Review-Cards auf allen Seiten vollständig klickbar (routerLink auf `/review/:id`).
+- **Header-Navigation:** Header-Links auf Startseite, Suche und Rezension einreichen umgestellt; Footer auf Datenschutz / Impressum.
+- **Sortierung:** Dropdown auf der Startseite mit Optionen „Neueste", „Beste Bewertung", „A–Z".
+- **Rating-Anzeige:** Eigene `CardRatingComponent` und `RatingVineComponent` — Rating sichtbar auf Karten, in der Suche und auf der Detailseite.
+- **Cover-Placeholder:** `CoverPlaceholderComponent` — branded SVG-Cover (iOS-26-style Liquid-Glass mit Roterdorn-Dorn + Wordmark) für Reviews ohne `cover_url`; außerdem Fallback bei broken img URLs in allen drei Seiten (ReviewList, Search, ReviewDetail).
+- **Drop Cap:** Erster Buchstabe des ersten Haupt-Absatzes (nach dem Intro-Satz) als großer roter Initialbuchstabe — Standard für alle Reviews. Implementiert per TypeScript (`addDropCap()`-Methode in `ReviewDetailComponent`), funktioniert sowohl für Plain-Text- als auch für HTML-Inhalte.
+- **MVP-Branch:** Branch `mvp` von `main` abgezweigt, alle Feature-Branches konfliktfrei eingemergt.
 
 ### Noch offen:
-- Responsive auf Smartphone testen (breakpoints bei 680px / 480px).
+- Responsive auf Smartphone testen (Breakpoints bei 680 px / 480 px).
 - Skeleton-States / Loading-Spinner (aktuell nur Textzeile „Lädt…").
 - Leere Zustände: „Keine Ergebnisse für diesen Filter" wenn Grid leer ist.
-- Footer einbauen.
 
 ---
 
