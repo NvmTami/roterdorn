@@ -68,17 +68,19 @@
   <div class="reviews-grid">
     @for (review of editorialReviews(); track review.id) {
       <article class="review-card">
-        @if (review.cover_url) {
-          <img class="review-card__cover" [src]="review.cover_url" [alt]="review.title" />
-        } @else {
-          <div class="review-card__cover review-card__cover--placeholder" aria-hidden="true"></div>
-        }
-        <div class="review-card__body">
-          <div class="review-card__type">{{ review.media_type | mediaType }}</div>
-          <div class="review-card__title">{{ review.title }}</div>
-          <div class="review-card__author">{{ review.author }}</div>
-          <app-card-rating [rating]="review.rating * 2" />
-        </div>
+        <a class="review-card__link" [routerLink]="['/review', review.id]" [attr.aria-label]="review.title">
+          @if (review.cover_url) {
+            <img class="review-card__cover" [src]="review.cover_url" [alt]="review.title" />
+          } @else {
+            <div class="review-card__cover review-card__cover--placeholder" aria-hidden="true"></div>
+          }
+          <div class="review-card__body">
+            <div class="review-card__type">{{ review.media_type | mediaType }}</div>
+            <div class="review-card__title">{{ review.title }}</div>
+            <div class="review-card__author">{{ review.author }}</div>
+            <app-card-rating [rating]="review.rating * 2" />
+          </div>
+        </a>
       </article>
     }
   </div>
