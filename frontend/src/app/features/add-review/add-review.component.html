@@ -1,26 +1,82 @@
-<h2>Neue Rezension hinzufügen</h2>
-<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="title">Titel:</label>
-    <input id="title" type="text" formControlName="title" />
+<div class="form-shell">
+  <app-header />
+
+  <div class="form-layout">
+    <header class="form-header">
+      <span class="kicker">Neue Rezension</span>
+      <h1 class="form-title">Was hast du zuletzt erlebt?</h1>
+    </header>
+
+    @if (submitted()) {
+      <div class="success-banner" role="status">
+        ✦ Rezension wurde erfolgreich gespeichert.
+      </div>
+    }
+
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="field-group">
+        <label class="field-label" for="title">Titel</label>
+        <input
+          class="field-input"
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder="z. B. Moby Dick, Dune, Dark Souls …"
+          autocomplete="off"
+        />
+        @if (titleInvalid()) {
+          <span class="field-error">Bitte gib einen Titel ein.</span>
+        }
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="category">Kategorie</label>
+          <select class="field-select" id="category" formControlName="category">
+            <option value="">— Wählen —</option>
+            <option value="Bücher">Bücher</option>
+            <option value="Musik">Musik</option>
+            <option value="Spiele">Spiele</option>
+            <option value="Filme">Filme</option>
+          </select>
+          @if (categoryInvalid()) {
+            <span class="field-error">Bitte wähle eine Kategorie.</span>
+          }
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="rating">Bewertung (1–5)</label>
+          <input
+            class="field-input field-input--narrow"
+            id="rating"
+            type="number"
+            formControlName="rating"
+            min="1"
+            max="5"
+          />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="comment">Kommentar <span class="field-optional">(optional)</span></label>
+        <textarea
+          class="field-textarea"
+          id="comment"
+          formControlName="comment"
+          rows="6"
+          placeholder="Deine Gedanken zur Rezension …"
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-submit" type="submit" [disabled]="!reviewForm.valid">
+          Rezension speichern
+        </button>
+      </div>
+
+    </form>
   </div>
-  <div>
-    <label for="category">Kategorie:</label>
-    <select id="category" formControlName="category">
-      <option value="">-- Wähle eine Kategorie --</option>
-      <option value="Bücher">Bücher</option>
-      <option value="Musik">Musik</option>
-      <option value="Spiele">Spiele</option>
-      <option value="Filme">Filme</option>
-    </select>
-  </div>
-  <div>
-    <label for="rating">Bewertung (1-5):</label>
-    <input id="rating" type="number" formControlName="rating" min="1" max="5" />
-  </div>
-  <div>
-    <label for="comment">Kommentar:</label>
-    <textarea id="comment" formControlName="comment"></textarea>
-  </div>
-  <button type="submit" [disabled]="!reviewForm.valid">Hinzufügen</button>
-</form>
+
+  <app-footer />
+</div>

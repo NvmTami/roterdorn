@@ -1,27 +1,150 @@
-/* Styles für add-review */
-form div {
-  margin-bottom: 1rem;
+/* ============================================================
+   add-review.component.scss  –  Roterdorn editorial style
+   ============================================================ */
+
+.form-shell {
+  max-width: 900px;
+  margin: 32px auto;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
+/* ── Form container ──────────────────────────────────────── */
+
+.form-layout {
+  padding: 32px 28px 40px;
+  max-width: 640px;
 }
 
-input, select, textarea {
+/* ── Header ──────────────────────────────────────────────── */
+
+.form-header {
+  margin-bottom: 28px;
+}
+
+.form-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* ── Success banner ──────────────────────────────────────── */
+
+.success-banner {
+  background: var(--accent-dim);
+  border: 0.5px solid var(--accent);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-md);
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* ── Field primitives ────────────────────────────────────── */
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 16px;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.field-optional {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.field-input,
+.field-select,
+.field-textarea {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 0.5px solid var(--border-btn);
+  border-radius: var(--border-radius-md);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.15s;
   width: 100%;
-  padding: 0.5rem;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+  border-color: var(--accent);
+}
+
+.field-input::placeholder,
+.field-textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.field-input--narrow {
+  width: 100%;
+}
+
+.field-select option {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.field-textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--accent);
+}
+
+/* ── Submit button ───────────────────────────────────────── */
+
+.form-actions {
+  margin-top: 28px;
+}
+
+.btn-submit {
+  background: var(--accent);
+  color: #fff;
   border: none;
+  border-radius: var(--border-radius-md);
+  padding: 11px 24px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  font-weight: 500;
   cursor: pointer;
+  transition: opacity 0.15s;
 }
 
-button:disabled {
-  background-color: #ccc;
+.btn-submit:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.btn-submit:disabled {
+  opacity: 0.35;
   cursor: not-allowed;
 }
