@@ -77,11 +77,17 @@ body {
 }
 
 /**
- * Drop cap on the first paragraph of a long-form article.
- * Apply via .has-drop-cap on the container; the first <p>::first-letter
- * gets the treatment.
+ * Drop cap on the first body paragraph of a long-form article –
+ * i.e. the paragraph *after* the intro sentence / excerpt.
+ *
+ * Two patterns are handled:
+ *   a) <p intro>  <h2>  <p body>  → first <p> after the first <h2>
+ *   b) <p intro>  <p body>        → second <p> (no heading between them)
+ *
+ * Apply .has-drop-cap on the .review-body container.
  */
-.has-drop-cap > p:first-of-type::first-letter {
+.has-drop-cap > h2:first-of-type + p::first-letter,
+.has-drop-cap > p:first-of-type + p::first-letter {
   font-family: var(--font-serif);
   font-weight: 500;
   font-size: 4.6em;
