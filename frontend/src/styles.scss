@@ -1,9 +1,21 @@
 :root {
 	--brand-accent: #e24b4a;
 	--brand-surface-dark: #0d0d0d;
+	--brand-surface-card: #111111;
 	--brand-surface-light: #f4f3ee;
 	--brand-text-primary: #ffffff;
 	--brand-text-muted: #888888;
+	--brand-border: #1f1f1f;
+	--transition-fast: 0.15s ease;
+	--transition-smooth: 0.22s ease;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
 }
 
 body {
@@ -11,4 +23,9 @@ body {
 	background: var(--brand-surface-dark);
 	color: var(--brand-text-primary);
 	font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	transition: color var(--transition-fast);
 }

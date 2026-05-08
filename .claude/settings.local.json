@@ -97,7 +97,8 @@
       "Bash(pkill -9 -f \"/usr/sbin/node\")",
       "Bash(node -e ' *)",
       "Bash(ps -eo pid,args)",
-      "Bash(fuser -k 4200/tcp)"
+      "Bash(fuser -k 4200/tcp)",
+      "Bash(npm run *)"
     ]
   }
 }

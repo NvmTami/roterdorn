@@ -23,21 +23,36 @@ import { BrandLogoComponent } from '../../shared/branding/brand-logo.component';
     </header>
   `,
   styles: [`
+    :host {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: block;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(13, 13, 13, 0.85);
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
     .site-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
-      border-bottom: 0.5px solid #1f1f1f;
+      padding: 0.75rem 1.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
     }
     .brand-link { color: inherit; text-decoration: none; }
     .primary-nav {
       display: flex;
       gap: 1.5rem;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--brand-text-muted);
     }
-    .primary-nav a { color: inherit; text-decoration: none; }
+    .primary-nav a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
     .primary-nav a:hover, .primary-nav a.active { color: var(--brand-accent); }
   `],
 })
