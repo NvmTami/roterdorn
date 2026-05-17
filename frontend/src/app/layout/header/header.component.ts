@@ -83,6 +83,10 @@ import { RouterLink } from '@angular/router';
         gap: 14px;
         justify-content: flex-start;
         font-size: 13px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 100%;
       }
     }
 
@@ -92,10 +96,8 @@ import { RouterLink } from '@angular/router';
       }
 
       .primary-nav {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        width: 100%;
-        gap: 10px 14px;
+        display: flex;
+        gap: 12px;
       }
     }
   `],
