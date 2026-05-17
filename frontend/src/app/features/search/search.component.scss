@@ -308,7 +308,17 @@
   }
 
   .results-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .result-card__body {
+    padding: 10px;
+  }
+
+  .result-card__title {
+    font-size: 13px;
+    line-height: 1.25;
   }
 }
 
