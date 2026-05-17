@@ -77,11 +77,10 @@ body {
 }
 
 /**
- * Drop cap on the first paragraph of a long-form article.
- * Apply via .has-drop-cap on the container; the first <p>::first-letter
- * gets the treatment.
+ * Drop cap – injected via TypeScript on the correct paragraph.
+ * The class .drop-cap is added programmatically in review-detail.component.ts.
  */
-.has-drop-cap > p:first-of-type::first-letter {
+.drop-cap::first-letter {
   font-family: var(--font-serif);
   font-weight: 500;
   font-size: 4.6em;

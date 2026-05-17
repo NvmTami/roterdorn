@@ -6,6 +6,7 @@ import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
 import { CardRatingComponent } from '../../shared/components/card-rating/card-rating.component'
+import { CoverPlaceholderComponent } from '../../shared/components/cover-placeholder/cover-placeholder.component';
 
 interface HomeReview extends Review {
   author: string;
@@ -23,7 +24,7 @@ const FILTER_TO_TYPE: Record<string, string | undefined> = {
 @Component({
   selector: 'app-review-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent, FooterComponent, CardRatingComponent],
+  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent, FooterComponent, CardRatingComponent, CoverPlaceholderComponent],
   templateUrl: './review-list.component.html',
   styleUrl: './review-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +33,8 @@ export class ReviewListComponent {
   private readonly reviewService = inject(ReviewService);
 
   reviews  = signal<HomeReview[]>([]);
+  featuredCoverBroken = signal(false);
+  brokenCovers        = signal(new Set<number>());
   loading  = signal(true);
   error    = signal(false);
 
@@ -68,6 +71,14 @@ export class ReviewListComponent {
 
   loadMore(): void {
     this.visibleCount.update(n => n + this.PAGE_SIZE);
+  }
+
+  onFeaturedCoverError(): void {
+    this.featuredCoverBroken.set(true);
+  }
+
+  onCoverError(id: number): void {
+    this.brokenCovers.update(s => new Set([...s, id]));
   }
 
   readonly activeFilter = signal('alle');

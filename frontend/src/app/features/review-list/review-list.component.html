@@ -11,10 +11,10 @@
 
   @if (featuredReview(); as featured) {
     <section class="hero" aria-label="Neueste Rezension">
-      @if (featured.cover_url) {
-        <img class="hero__cover" [src]="featured.cover_url" [alt]="featured.title" />
+      @if (featured.cover_url && !featuredCoverBroken()) {
+        <img class="hero__cover" [src]="featured.cover_url" [alt]="featured.title" (error)="onFeaturedCoverError()" />
       } @else {
-        <div class="hero__cover hero__cover--placeholder" aria-hidden="true"></div>
+        <app-cover-placeholder class="hero__cover" />
       }
       <div class="hero__content">
         <span class="badge">Rezension · {{ featured.media_type | mediaType }}</span>
@@ -69,10 +69,10 @@
     @for (review of editorialReviews(); track review.id) {
       <article class="review-card">
         <a class="review-card__link" [routerLink]="['/review', review.id]" [attr.aria-label]="review.title">
-          @if (review.cover_url) {
-            <img class="review-card__cover" [src]="review.cover_url" [alt]="review.title" />
+          @if (review.cover_url && !brokenCovers().has(review.id)) {
+            <img class="review-card__cover" [src]="review.cover_url" [alt]="review.title" (error)="onCoverError(review.id)" />
           } @else {
-            <div class="review-card__cover review-card__cover--placeholder" aria-hidden="true"></div>
+            <app-cover-placeholder class="review-card__cover" />
           }
           <div class="review-card__body">
             <div class="review-card__type">{{ review.media_type | mediaType }}</div>

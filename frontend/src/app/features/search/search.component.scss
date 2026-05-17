@@ -128,10 +128,6 @@
   display: block;
 }
 
-.top-result__cover--placeholder {
-  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
-}
-
 .top-result__body      { flex: 1; }
 .top-result__badges    { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 
@@ -217,13 +213,6 @@
   width: 100%;
   display: block;
   object-fit: cover;
-}
-
-.result-card__cover--placeholder {
-  aspect-ratio: 3 / 4;
-  width: 100%;
-  display: block;
-  background: linear-gradient(135deg, #2a1810 0%, #120c08 100%);
 }
 
 .result-card__body   { padding: 12px; }

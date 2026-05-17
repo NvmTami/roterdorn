@@ -20,10 +20,10 @@
 
     <div class="detail-layout">
       <aside>
-        @if (r.cover_url) {
-          <img class="cover-image" [src]="r.cover_url" [alt]="r.title" />
+        @if (r.cover_url && !coverBroken()) {
+          <img class="cover-image" [src]="r.cover_url" [alt]="r.title" (error)="onCoverError()" />
         } @else {
-          <div class="cover-placeholder" aria-hidden="true"></div>
+          <app-cover-placeholder class="cover-image" />
         }
 
         @if (detailEntries().length > 0) {

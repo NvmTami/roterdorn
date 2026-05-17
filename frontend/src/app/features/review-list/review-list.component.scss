@@ -26,15 +26,6 @@
   object-fit: cover;
 }
 
-.hero__cover--placeholder {
-  background: linear-gradient(135deg, #4a1410 0%, #2a0c0a 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 14px;
-  font-size: 12px;
-  color: rgba(240, 236, 228, 0.5);
-}
-
 .badge {
   display: inline-block;
   background: var(--accent);
@@ -169,10 +160,6 @@
   width: 100%;
   display: block;
   object-fit: cover;
-}
-
-.review-card__cover--placeholder {
-  background: linear-gradient(135deg, #2a1810 0%, #120c08 100%);
 }
 
 .review-card__body {
