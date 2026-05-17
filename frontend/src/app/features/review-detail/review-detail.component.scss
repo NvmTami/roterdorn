@@ -1,4 +1,17 @@
-/* 1:1 aus roterdorn_review_detail_book_mockup.css – nur Seiteninhalt, keine globalen Regeln */
+/* ============================================================
+   review-detail.component.scss
+
+   Editorial layout for a single review.
+
+   Changes vs. previous version:
+   - .badge replaced by global .kicker (used in template).
+   - .rating-panel + .rating-bar removed; rendering moved to
+     <app-rating-vine>. The component owns its styles.
+   - .review-body uses the global .prose helper (max-width: 65ch)
+     and .has-drop-cap (large coloured first letter on the first
+     paragraph).
+   - .review-title uses the new editorial serif (Fraunces).
+   ============================================================ */
 
 .detail-shell {
   max-width: 900px;
@@ -98,7 +111,7 @@
 .meta-row:last-child { border-bottom: none; }
 
 .meta-row dt { color: var(--text-muted); font-weight: normal; }
-.meta-row dd { color: var(--text-primary); margin: 0; }
+.meta-row dd { color: var(--text-primary); margin: 0; text-align: right; }
 .meta-row dd.isbn { font-family: var(--font-mono); font-size: 12px; }
 
 .tag-list {
@@ -116,27 +129,24 @@
   border-radius: 4px;
 }
 
-/* ── Main content ────────────────────────────────────────── */
+/* ── Article: editorial typography ──────────────────────── */
 
-.badge {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
+.article {
+  /* Lets the rating panel and prose breathe but does not over-narrow
+     the column on wide screens. The .prose helper does the actual
+     measure-capping on the body text. */
+  min-width: 0;
 }
 
 .review-title {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: 44px;
   font-weight: 500;
-  margin: 14px 0 8px;
-  line-height: 1.1;
+  margin: 6px 0 10px;
+  line-height: 1.05;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
 }
 
 .review-byline {
@@ -147,70 +157,44 @@
 
 .review-byline__author { color: var(--text-soft); }
 
-/* ── Rating panel ────────────────────────────────────────── */
+/* ── Rating ─────────────────────────────────────────────── */
 
-.rating-panel {
-  background: var(--surface);
-  border: 0.5px solid var(--border);
-  border-radius: var(--border-radius-md);
-  padding: 18px 20px;
-  margin-bottom: 24px;
+.review-rating {
+  display: block;
+  margin-bottom: 28px;
+  max-width: var(--measure);
 }
 
-.rating-panel__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.rating-panel__label {
-  font-size: 11px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 500;
-}
-
-.rating-panel__value {
-  font-size: 28px;
-  font-weight: 500;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.rating-panel__denom {
-  color: var(--text-dim);
-  font-size: 18px;
-}
-
-.rating-bar svg { display: block; }
-
-.rating-bar__scale {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-top: 4px;
-  padding: 0 4px;
-}
-
-/* ── Review text ────────────────────────────────────────── */
+/* ── Review prose ───────────────────────────────────────── */
 
 .review-excerpt {
   font-family: var(--font-serif);
-  font-size: 19px;
-  line-height: 1.55;
+  font-size: 22px;
+  line-height: 1.45;
   color: #d8d3c5;
-  margin: 0 0 22px;
+  margin: 0 0 28px;
   font-style: italic;
+  font-weight: 400;
+  max-width: var(--measure);
+  border-left: 2px solid var(--accent);
+  padding-left: 18px;
 }
 
 .review-body {
-  font-size: 16px;
-  line-height: 1.75;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.7;
   color: var(--text-soft);
   margin: 0 0 18px;
+  font-optical-sizing: auto;
+}
+
+.review-body :is(p, ul, ol, blockquote) {
+  margin: 0 0 1.1em;
+}
+
+.review-body p:last-child {
+  margin-bottom: 0;
 }
 
 /* ── Share row ───────────────────────────────────────────── */
@@ -221,7 +205,7 @@
   gap: 12px;
   padding-top: 18px;
   border-top: 0.5px solid var(--border);
-  margin-top: 8px;
+  margin-top: 24px;
 }
 
 .share-row__label { font-size: 12px; color: var(--text-dim); }
@@ -263,8 +247,31 @@
   object-fit: cover;
 }
 
-.related-card__cover--placeholder { background: linear-gradient(135deg, #2a1810, #120c08); }
+.related-card__cover--placeholder {
+  background: linear-gradient(135deg, #2a1810, #120c08);
+}
 
 .related-card__body  { padding: 10px; }
 .related-card__type  { font-size: 10px; color: var(--accent); font-weight: 500; }
 .related-card__title { font-size: 13px; color: var(--text-primary); margin-top: 2px; }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+
+@media (max-width: 680px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .review-title {
+    font-size: 32px;
+  }
+
+  .review-excerpt {
+    font-size: 18px;
+  }
+
+  .review-body {
+    font-size: 16px;
+  }
+}

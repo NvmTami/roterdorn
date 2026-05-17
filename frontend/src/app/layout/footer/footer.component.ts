@@ -17,9 +17,8 @@ import { RouterLink } from '@angular/router';
         </a>
         <p class="site-footer__copy">Alle Texte © roterdorn · Alle Rechte vorbehalten</p>
         <nav class="site-footer__links" aria-label="Footer-Navigation">
-          <a routerLink="/">Startseite</a>
-          <a routerLink="/search">Suche</a>
-          <a routerLink="/add">Rezension einreichen</a>
+          <a routerLink="/datenschutz">Datenschutz</a>
+          <a routerLink="/impressum">Impressum</a>
         </nav>
       </div>
     </footer>

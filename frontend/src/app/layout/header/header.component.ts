@@ -16,10 +16,8 @@ import { RouterLink } from '@angular/router';
       </a>
       <nav aria-label="Hauptnavigation">
         <ul class="primary-nav">
-          <li><a routerLink="/buecher" routerLinkActive="primary-nav__item--active">Bücher</a></li>
-          <li><a routerLink="/filme" routerLinkActive="primary-nav__item--active">Filme</a></li>
-          <li><a routerLink="/musik" routerLinkActive="primary-nav__item--active">Musik</a></li>
-          <li><a routerLink="/spiele" routerLinkActive="primary-nav__item--active">Spiele</a></li>
+          <li><a routerLink="/search" routerLinkActive="primary-nav__item--active">Suche</a></li>
+          <li><a routerLink="/add" routerLinkActive="primary-nav__item--active">Rezension einreichen</a></li>
           <li class="primary-nav__item--dim"><a routerLink="/redaktion">Redaktion</a></li>
         </ul>
       </nav>

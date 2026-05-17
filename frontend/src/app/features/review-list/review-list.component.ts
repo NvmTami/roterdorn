@@ -5,6 +5,7 @@ import { Review, ReviewService } from '../../core/services/review.service';
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
+import { CardRatingComponent } from '../../shared/components/card-rating/card-rating.component'
 
 interface HomeReview extends Review {
   author: string;
@@ -22,7 +23,7 @@ const FILTER_TO_TYPE: Record<string, string | undefined> = {
 @Component({
   selector: 'app-review-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterLink, MediaTypePipe, HeaderComponent, FooterComponent, CardRatingComponent],
   templateUrl: './review-list.component.html',
   styleUrl: './review-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,9 +38,33 @@ export class ReviewListComponent {
   private readonly PAGE_SIZE = 12;
   visibleCount = signal(this.PAGE_SIZE);
 
-  featuredReview   = computed(() => this.reviews()[0] ?? null);
-  editorialReviews = computed(() => this.reviews().slice(1, this.visibleCount() + 1));
-  hasMore          = computed(() => this.reviews().length > this.visibleCount() + 1);
+  readonly activeSort = signal('newest');
+
+  readonly sortOptions = [
+    { label: 'Neueste zuerst', value: 'newest' },
+    { label: 'Beste Bewertung', value: 'best'   },
+    { label: 'A–Z',            value: 'az'     },
+  ];
+
+  setSort(value: string): void {
+    this.activeSort.set(value);
+    this.visibleCount.set(this.PAGE_SIZE);
+  }
+
+  private readonly sortedReviews = computed(() => {
+    const list = [...this.reviews()];
+    switch (this.activeSort()) {
+      case 'best':   return list.sort((a, b) => b.rating - a.rating);
+      case 'az':     return list.sort((a, b) => a.title.localeCompare(b.title, 'de'));
+      default:       return list.sort((a, b) =>
+        new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+      );
+    }
+  });
+
+  featuredReview   = computed(() => this.sortedReviews()[0] ?? null);
+  editorialReviews = computed(() => this.sortedReviews().slice(1, this.visibleCount() + 1));
+  hasMore          = computed(() => this.sortedReviews().length > this.visibleCount() + 1);
 
   loadMore(): void {
     this.visibleCount.update(n => n + this.PAGE_SIZE);

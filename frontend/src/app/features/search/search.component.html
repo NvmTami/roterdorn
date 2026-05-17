@@ -57,7 +57,7 @@
 
   @if (topResult(); as top) {
     <div class="top-result-wrap">
-      <article class="top-result">
+      <a class="top-result" [routerLink]="['/review', top.id]" [attr.aria-label]="top.title">
         @if (top.cover_url) {
           <img class="top-result__cover" [src]="top.cover_url" [alt]="top.title" />
         } @else {
@@ -68,19 +68,12 @@
             <span class="badge-type">{{ top.media_type | mediaType }}</span>
             <span class="badge-top">Top-Treffer</span>
           </div>
-          <h2 class="top-result__title">
-            <a [routerLink]="['/review', top.id]">{{ top.title }}</a>
-          </h2>
+          <h2 class="top-result__title">{{ top.title }}</h2>
           <p class="top-result__meta">{{ top.author_name }} · {{ top.published_at | date:'dd.MM.yyyy' }}</p>
           <p class="top-result__excerpt">{{ top.excerpt }}</p>
-          <div class="top-result__rating">
-            <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
-              <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
-            </svg>
-            <span>{{ +top.rating * 2 }}/10</span>
-          </div>
+          <app-card-rating [rating]="top.rating * 2" />
         </div>
-      </article>
+      </a>
     </div>
   }
 
@@ -88,24 +81,19 @@
     <div class="results-grid">
       @for (result of restResults(); track result.id) {
         <article class="result-card">
-          @if (result.cover_url) {
-            <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
-          } @else {
-            <div class="result-card__cover result-card__cover--placeholder"></div>
-          }
-          <div class="result-card__body">
-            <div class="result-card__type">{{ result.media_type | mediaType }}</div>
-            <div class="result-card__title">
-              <a [routerLink]="['/review', result.id]">{{ result.title }}</a>
+          <a class="result-card__link" [routerLink]="['/review', result.id]" [attr.aria-label]="result.title">
+            @if (result.cover_url) {
+              <img class="result-card__cover" [src]="result.cover_url" [alt]="result.title" />
+            } @else {
+              <div class="result-card__cover result-card__cover--placeholder"></div>
+            }
+            <div class="result-card__body">
+              <div class="result-card__type">{{ result.media_type | mediaType }}</div>
+              <div class="result-card__title">{{ result.title }}</div>
+              <div class="result-card__author">{{ result.author_name }}</div>
+              <app-card-rating [rating]="result.rating * 2" />
             </div>
-            <div class="result-card__author">{{ result.author_name }}</div>
-            <div class="card-rating">
-              <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true">
-                <polygon points="7,0 9,5 14,5 10,8 12,14 7,10 2,14 4,8 0,5 5,5" fill="#e63946" />
-              </svg>
-              <span class="card-rating__text">{{ +result.rating * 2 }}/10</span>
-            </div>
-          </div>
+          </a>
         </article>
       }
     </div>

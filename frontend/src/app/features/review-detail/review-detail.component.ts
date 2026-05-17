@@ -6,6 +6,7 @@ import { ReviewDetail, ReviewService } from '../../core/services/review.service'
 import { MediaTypePipe } from '../../shared/pipes/media-type.pipe';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
+import { RatingVineComponent } from '../../shared/components/rating-vine/rating-vine.component';
 
 const DETAIL_LABELS: Record<string, string> = {
   publisher:    'Verlag',
@@ -25,10 +26,27 @@ const DETAIL_LABELS: Record<string, string> = {
   players:      'Spieler',
 };
 
+/**
+ * Convert a 0-5 stored rating into the 0-10 display scale used across
+ * the editorial UI. Returns 0 when the rating is missing.
+ */
+const toDisplayRating = (storedRating: number | string | undefined): number => {
+  const numeric = parseFloat(String(storedRating ?? 0));
+  if (Number.isNaN(numeric)) return 0;
+  return Math.round(numeric * 2);
+};
+
 @Component({
   selector: 'app-review-detail',
   standalone: true,
-  imports: [RouterLink, CommonModule, MediaTypePipe, HeaderComponent, FooterComponent],
+  imports: [
+    RouterLink,
+    CommonModule,
+    MediaTypePipe,
+    HeaderComponent,
+    FooterComponent,
+    RatingVineComponent,
+  ],
   templateUrl: './review-detail.component.html',
   styleUrl: './review-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,33 +60,34 @@ export class ReviewDetailComponent {
   loading = signal(true);
   error   = signal(false);
 
-  readonly maxRating    = 10;
-  readonly ratingMarkers = Array.from({ length: 10 }, (_, i) => i + 1);
-
-  displayRating = computed(() =>
-    Math.round(parseFloat(String(this.review()?.rating ?? 0)) * 2)
-  );
+  displayRating = computed(() => toDisplayRating(this.review()?.rating));
 
   safeContent = computed((): SafeHtml =>
     this.sanitizer.bypassSecurityTrustHtml(this.review()?.content ?? '')
   );
 
   detailEntries = computed(() => {
-    const d = this.review()?.details;
-    if (!d) return [];
-    return Object.entries(d)
-      .filter(([k]) => k !== 'review_id')
-      .map(([k, v]) => ({
-        label: DETAIL_LABELS[k] ?? k,
-        value: String(v),
+    const details = this.review()?.details;
+    if (!details) return [];
+    return Object.entries(details)
+      .filter(([key]) => key !== 'review_id')
+      .map(([key, value]) => ({
+        label: DETAIL_LABELS[key] ?? key,
+        value: String(value),
       }));
   });
 
   constructor() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.getReview(id).subscribe({
-      next: (r) => { this.review.set(r); this.loading.set(false); },
-      error: () => { this.error.set(true); this.loading.set(false); },
+    const reviewId = Number(this.route.snapshot.paramMap.get('id'));
+    this.service.getReview(reviewId).subscribe({
+      next: (loadedReview) => {
+        this.review.set(loadedReview);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set(true);
+        this.loading.set(false);
+      },
     });
   }
 }
