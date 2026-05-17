@@ -29,6 +29,7 @@ import { RouterLink } from '@angular/router';
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 14px;
       padding: 18px 28px;
       border-bottom: 0.5px solid var(--border);
     }
@@ -42,6 +43,7 @@ import { RouterLink } from '@angular/router';
       letter-spacing: -0.02em;
       color: var(--text-primary);
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .primary-nav {
@@ -52,6 +54,8 @@ import { RouterLink } from '@angular/router';
       list-style: none;
       margin: 0;
       padding: 0;
+      justify-content: flex-end;
+      flex-wrap: wrap;
     }
 
     .primary-nav li a {
@@ -66,6 +70,33 @@ import { RouterLink } from '@angular/router';
 
     .primary-nav__item--dim a {
       color: var(--text-dim) !important;
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 20px;
+      }
+
+      .primary-nav {
+        gap: 14px;
+        justify-content: flex-start;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .brand {
+        font-size: 20px;
+      }
+
+      .primary-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 10px 14px;
+      }
     }
   `],
 })

@@ -213,3 +213,82 @@
   border-color: var(--accent);
   color: var(--accent);
 }
+
+@media (max-width: 900px) {
+  .homepage-shell {
+    margin: 20px 12px;
+  }
+
+  .hero,
+  .filter-bar,
+  .reviews-grid,
+  .load-more-wrap {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 18px;
+  }
+
+  .hero__cover {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    font-size: 26px;
+  }
+
+  .hero__actions {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .sort-select {
+    width: 100%;
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding-bottom: 20px;
+  }
+
+  .load-more-wrap {
+    padding-bottom: 22px;
+  }
+}
+
+@media (max-width: 420px) {
+  .homepage-shell {
+    margin: 12px 0;
+    border-radius: 0;
+  }
+
+  .hero,
+  .filter-bar,
+  .reviews-grid,
+  .load-more-wrap {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -148,3 +148,40 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
+
+@media (max-width: 900px) {
+  .form-shell {
+    margin: 20px 12px;
+  }
+
+  .form-layout {
+    padding: 26px 18px 30px;
+  }
+}
+
+@media (max-width: 680px) {
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .form-shell {
+    margin: 12px 0;
+    border-radius: 0;
+  }
+
+  .form-layout {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

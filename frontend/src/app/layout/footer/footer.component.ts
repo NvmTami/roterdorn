@@ -53,11 +53,15 @@ import { RouterLink } from '@angular/router';
       margin: 0;
       font-size: 12px;
       color: var(--text-dim);
+      text-align: center;
+      line-height: 1.4;
     }
 
     .site-footer__links {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .site-footer__links a {
@@ -68,6 +72,12 @@ import { RouterLink } from '@angular/router';
 
     .site-footer__links a:hover {
       color: var(--accent);
+    }
+
+    @media (max-width: 680px) {
+      .site-footer {
+        padding: 22px 16px;
+      }
     }
   `]
 })

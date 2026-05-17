@@ -14,7 +14,8 @@ XAMPP Control Panel öffnen → bei **MySQL** auf **Start** klicken
 ### 2. Backend starten (Terminal 1)
 
 ```powershell
-cd C:\Programmieren\Ausbildung\roterdorn\backend
+# Aus dem Projektroot ausführen
+cd backend
 .\venv\Scripts\Activate.ps1
 python app.py
 ```
@@ -26,7 +27,8 @@ python app.py
 ### 3. Frontend starten (Terminal 2)
 
 ```powershell
-cd C:\Programmieren\Ausbildung\roterdorn\frontend
+# Aus dem Projektroot ausführen
+cd frontend
 ng serve
 ```
 
